@@ -1,0 +1,23 @@
+{
+  "name": "unicornzombiepineapple",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LazerPlatypus/UnicornZombiePineapple.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LazerPlatypus/UnicornZombiePineapple/issues"
+  },
+  "homepage": "https://github.com/LazerPlatypus/UnicornZombiePineapple#readme",
+  "dependencies": {
+    "mongoose": "^5.8.10",
+    "pug": "^2.0.4"
+  }
+}
