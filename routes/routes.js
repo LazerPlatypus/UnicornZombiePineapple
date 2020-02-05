@@ -12,7 +12,21 @@ mongoose.connect(databaseUrl, {
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
+const UserSchema = new Schema({
+    score : Number,
+    gamesPlayed : Number,
+    gameName : String,
+    losses : Number,
+    wins : Number
+});
 
+/*
+Score - int
+Games played - int
+Game Name / ID - varchar(max)
+Losses - int
+Wins - int
+*/
 
 
 const router = express.Router();
