@@ -31,7 +31,6 @@ const User = mongoose.model(userCollectionName, UserSchema);
 const router = express.Router();
 
 router.route("/").get(
-
     function(req, res){
         res.render('index')
     }
@@ -45,7 +44,6 @@ router.route("/login").get(
             userId : req.session.userId,
             isAdmin : req.session.isAdmin
         }
-
         res.render("userLogin", model);
     }
 );
