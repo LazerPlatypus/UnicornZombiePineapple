@@ -52,4 +52,18 @@ router.route("/userInfo").get(
     }
 )
 
+router.route("/logout").get(
+
+    function(req, res){
+        res.render('index')
+    }
+)
+
+router.route("/register").get(
+
+    function(req, res){
+        res.render('userRegister')
+    }
+)
+
 module.exports = router;
