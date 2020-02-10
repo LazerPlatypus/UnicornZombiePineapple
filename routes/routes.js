@@ -7,8 +7,7 @@ var userCollectionName = "users";
 mongoose.connect(databaseUrl, {
     useNewUrlParser : true,
     useUnifiedTopology : true
-}).then(() => console.log("Connected to Database"))
-.catch(err => {console.log(Error, err.message) });
+});
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
@@ -30,6 +29,12 @@ router.route("/").get(
 
     function(req, res){
         res.render('index')
+    }
+)
+
+router.route("/login").get(
+    function(req, res) {
+        res.render('login');
     }
 )
 
