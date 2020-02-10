@@ -1,18 +1,21 @@
 .WelcomeDiv{
-    margin-left:2%;
-    margin-right:2%;
-    padding:10px;
-    display: flex;
-    border-radius:5px;
+    display: inline-block;
     background-color: black;
 
 }
+
+.gameLink{
+    display: inline-block;
+}
+
+
 h1{
 
     color: #FF0900;
     background: black;
     text-align: center;
 }
+
 h2{
     margin-left:2%;
     margin-right:2%;
@@ -22,39 +25,15 @@ h2{
     color: #FF0900;
     background: black;
     text-align: center;
-    
+    height: 300px;
+    width: 250px;
 }
-
-body{
-    background: darkgray;
-}
-
-.navBar ul{
-    margin-left:2%;
-    margin-right:2%;
-    padding:10px;
-    display: flex;
-    border-radius:5px;
-    flex: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    color:black;
-    background-color: black;
-    list-style-type: none;
-}
-
-li a {
-    margin:5px;
-    color:black;
-    text-decoration: none;
-    background-color: #bababa;
-    padding:10px;
-    display: block;
-    border:solid 1px black;
-    border-radius:5px;
-}
-li a:hover {
-    transition: 1s;
-    background-color: #555;
-    color: white;
+nav{
+    text-align: center;
+    margin-top: 1%;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding: 10px;
+    border-radius: 2%;
+    background-color: rgb(223, 219, 219);
 }

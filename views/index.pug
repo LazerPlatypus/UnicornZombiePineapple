@@ -1,5 +1,16 @@
-extends header
-append body  
-    a(href='/gameScreen')
-        div
-            h2="Single player!"
+html
+
+    head
+        title="Unicorn Zombie Pineapple"
+        link(href='/css/style.css', rel='stylesheet', type='text/css')
+        script(src="script.js")
+    body   
+        nav
+            a(href='/login')="Login"
+        h1="Zombies and Unicorns!"
+        div(id="WelcomeDiv")
+            a(id="gameLink" href='https://www.google.com/' style="display: inline-block;")
+                div(id="gameDiv")
+                    h2(id="choiceText")="Single player!"
+                
+    
