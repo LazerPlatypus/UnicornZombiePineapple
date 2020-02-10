@@ -1,14 +1,33 @@
 .WelcomeDiv{
+    display: inline-block;
     background-color: black;
 
 }
+
+.gameLink{
+    display: inline-block;
+}
+
+
 h1{
     color: #FF0900;
     background: black;
     text-align: center;
 }
+
 h2{
     color: #FF0900;
     background: black;
     text-align: center;
+    height: 300px;
+    width: 250px;
+}
+nav{
+    text-align: center;
+    margin-top: 1%;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding: 10px;
+    border-radius: 2%;
+    background-color: rgb(223, 219, 219);
 }
