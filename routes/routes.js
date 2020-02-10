@@ -1,32 +1,32 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const mongo_controller = require('../scripts/mongo_controller.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 
-var databaseUrl = "mongodb+srv://Admin:Admin123@cluster-hsisi.mongodb.net/test?retryWrites=true&w=majority"
-var userCollectionName = "users";
+// var databaseUrl = "mongodb+srv://Admin:Admin123@cluster-hsisi.mongodb.net/test?retryWrites=true&w=majority"
+// var userCollectionName = "users";
 
-mongoose.connect(databaseUrl, {
-    useNewUrlParser : true,
-    useUnifiedTopology : true
-});
+// mongoose.connect(databaseUrl, {
+//     useNewUrlParser : true,
+//     useUnifiedTopology : true
+// });
 
-const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
+// const Schema = mongoose.Schema;
+// const ObjectId = Schema.ObjectId;
 
-const UserSchema = new Schema({
-    username : String,
-    userId : Number,
-    score : Number,
-    gamesPlayed : Number,
-    gameName : String,
-    losses : Number,
-    wins : Number,
-    isAdmin : Boolean
-});
+// const UserSchema = new Schema({
+//     username : String,
+//     userId : Number,
+//     score : Number,
+//     gamesPlayed : Number,
+//     gameName : String,
+//     losses : Number,
+//     wins : Number,
+//     isAdmin : Boolean
+// });
 
-const User = mongoose.model(userCollectionName, UserSchema);
+// const User = mongoose.model(userCollectionName, UserSchema);
 
 const router = express.Router();
 
@@ -50,6 +50,22 @@ router.route("/login").get(
 
 router.route("/login").post(
     async function (req, res) {
+        var user;
+        mongo_controller.loginUser(req.body.username, req.body.password, (user, err) => {
+            if (err) {
+                var model = {
+                    title: 'Login Page',
+                    message: err;
+                };
+
+                res.render("userLogin", model);
+                return;
+            }
+
+            if (user) {
+                req.session.user = user;
+            }
+        });
         var user = await User.findOne({username:req.body.username});
         var valid = false;
         var valid = false;
