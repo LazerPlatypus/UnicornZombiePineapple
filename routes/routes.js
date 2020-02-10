@@ -40,4 +40,11 @@ router.route("/gameScreen").get(
     }
 )
 
+router.route("/userInfo").get(
+
+    function(req, res){
+        res.render('userInfo')
+    }
+)
+
 module.exports = router;
