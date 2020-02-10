@@ -33,4 +33,11 @@ router.route("/").get(
     }
 )
 
+router.route("/gameScreen").get(
+    
+    function(req, res){
+        res.render('game')
+    }
+)
+
 module.exports = router;
