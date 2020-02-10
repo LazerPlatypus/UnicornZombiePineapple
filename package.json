@@ -18,8 +18,13 @@
   },
   "homepage": "https://github.com/LazerPlatypus/UnicornZombiePineapple#readme",
   "dependencies": {
+    "bcrypt": "^3.0.8",
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "mongoose": "^5.8.10",
-    "pug": "^2.0.4"
-  }
+    "nodemon": "^2.0.2",
+    "pug": "^2.0.4",
+    "session": "^0.1.0"
+  },
+  "devDependencies": {}
 }
