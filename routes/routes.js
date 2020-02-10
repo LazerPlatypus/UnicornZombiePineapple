@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const mongo_controller = require('../scripts/mongo_controller.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
