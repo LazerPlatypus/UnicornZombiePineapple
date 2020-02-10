@@ -98,4 +98,25 @@ router.route("/gameScreen").get(
     }
 )
 
+router.route("/userInfo").get(
+
+    function(req, res){
+        res.render('userInfo')
+    }
+)
+
+router.route("/logout").get(
+
+    function(req, res){
+        res.render('index')
+    }
+)
+
+router.route("/register").get(
+
+    function(req, res){
+        res.render('userRegister')
+    }
+)
+
 module.exports = router;

@@ -1,15 +1,5 @@
-html
-
-    head
-        title="Unicorn Zombie Pineapple"
-        link(href='/css/style.css', rel='stylesheet', type='text/css')
-        script(src="script.js")
-    body   
-        nav
-            a(href='/login')="Login"
-        div(id="WelcomeDiv")
-            h1="Zombies and Unicorns!"
-            a(href='https://www.google.com/')
-                div
-                    h2="Single player!"
-    
+extends header
+append body  
+    a(href='/gameScreen')
+        div
+            h2="Single player!"
