@@ -1,4 +1,21 @@
 html
     head
+        title="Unicorn Zombie Pineapple"
+        link(href='/css/style.css', rel='stylesheet', type='text/css')
+        script(src="script.js")
     body
+    nav(class="navBar")
+            ul
+                li
+                    a.foo_link(href='/') Home
+                li
+                    a.foo_link(href='/gameScreen') Play
+                if loggedIn
+                    li
+                        a.foo_link(href='/logout') Logout
+                else
+                    li
+                        a.foo_link(href='/login') Login
+                    li
+                        a.foo_link(href='/register') Register
     block body
