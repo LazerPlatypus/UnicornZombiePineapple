@@ -105,11 +105,21 @@ exports.edit_user = (user, callback) => {
 }
 
 exports.getHighScores = (callback) => {
-    
-}
+    this.user.find({}, `username score`, {sort: {score: descending}}, (err, leaderboard) => {
+        if (err) {
+            return callback(undefined);
+        }
+
+        if (leaderboard) {
+            return callback(leaderboard)
+        } else {
+            return callback(undefined);
+        }
+    });
+};
 
 // helper functions
-createBlankUser(username, hash) {
+const createBlankUser = (username, hash) => {
     let user = new this.user({
         username: username,
         password: hash,
@@ -120,9 +130,9 @@ createBlankUser(username, hash) {
         isAdmin: false
     });
     return user;
-}
+};
 
-createSafeUser(user) {
+const createSafeUser = (user) => {
     let safe_user = {
         id: user.id,
         username: user.username,
@@ -133,4 +143,4 @@ createSafeUser(user) {
         isAdmin: user.isAdmin
     };
     return safe_user;
-}
+};
