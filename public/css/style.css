@@ -1,7 +1,7 @@
 .WelcomeDiv{
     display: inline-block;
     background-color: black;
-
+    border-radius:5px;
 }
 
 .gameLink{
@@ -10,7 +10,7 @@
 
 
 h1{
-
+    border-radius:5px;
     color: #FF0900;
     background: black;
     text-align: center;
@@ -57,4 +57,8 @@ li a:hover {
     transition: 1s;
     background-color: #555;
     color: white;
+}
+
+body{
+    background-color: darkgray;
 }
