@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 var databaseUrl = "mongodb+srv://Admin:Admin123@cluster-hsisi.mongodb.net/test?retryWrites=true&w=majority"
+var userCollectionName = "users";
 
 mongoose.connect(databaseUrl, {
     useNewUrlParser : true,
@@ -17,17 +18,11 @@ const UserSchema = new Schema({
     gamesPlayed : Number,
     gameName : String,
     losses : Number,
-    wins : Number
+    wins : Number,
+    isAdmin : Boolean
 });
 
-/*
-Score - int
-Games played - int
-Game Name / ID - varchar(max)
-Losses - int
-Wins - int
-*/
-
+const User = mongoose.model(userCollectionName, UserSchema);
 
 const router = express.Router();
 
