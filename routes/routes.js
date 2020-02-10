@@ -55,7 +55,7 @@ router.route("/login").post(
             if (err) {
                 var model = {
                     title: 'Login Page',
-                    message: err;
+                    message: err
                 };
 
                 res.render("userLogin", model);
