@@ -1,5 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 
 var databaseUrl = "mongodb+srv://Admin:Admin123@cluster-hsisi.mongodb.net/test?retryWrites=true&w=majority"
 var userCollectionName = "users";
@@ -13,6 +16,8 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const UserSchema = new Schema({
+    username : String,
+    userId : Number,
     score : Number,
     gamesPlayed : Number,
     gameName : String,
@@ -33,15 +38,84 @@ router.route("/").get(
 )
 
 router.route("/login").get(
-    function(req, res) {
-        res.render('login');
+    function (req, res) {
+        var model = {
+            title : "Login Page",
+            username : req.session.username,
+            userId : req.session.userId,
+            isAdmin : req.session.isAdmin
+        }
+
+        res.render("userLogin", model);
     }
-)
+);
+
+router.route("/login").post(
+    async function (req, res) {
+        var user = await User.findOne({username:req.body.username});
+        var valid = false;
+        var valid = false;
+        if(user){
+            valid = await bcrypt.compare(req.body.password, user.password);
+        }
+
+        if(user && valid){
+            console.log(user);
+            req.session.username = user.username;
+            req.session.userId = user._id;
+            req.session.isAdmin = user.roles.includes("Admin");
+            res.redirect("/games");
+        }else{
+            req.session.username = null;
+            req.session.userId = null;
+            req.session.isAdmin = null;
+
+            var model = {
+                title : "Login Page",
+                message: "Failed login!"
+            }
+
+            res.render("userLogin", model);
+        }
+    }
+);
+
+router.route("/logout").get(
+    function (req, res) {
+        // Need to clear our session logout
+        req.session.username = null;
+        req.session.userid = null;
+        req.session.isAdmin = null;
+
+        res.redirect("/");
+    }
+);
 
 router.route("/gameScreen").get(
     
     function(req, res){
         res.render('game')
+    }
+)
+
+router.route("/userInfo").get(
+
+    function(req, res){
+        res.render('userInfo')
+    }
+)
+
+router.route("/logout").get(
+
+    function(req, res){
+        res.render('index')
+    }
+)
+
+router.route("/register").get(
+
+    function(req, res){
+        res.render('userRegister')
     }
 )
 

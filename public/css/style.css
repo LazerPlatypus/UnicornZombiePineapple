@@ -10,12 +10,18 @@
 
 
 h1{
+
     color: #FF0900;
     background: black;
     text-align: center;
 }
 
 h2{
+    margin-left:2%;
+    margin-right:2%;
+    padding:10px;
+    display: flex;
+    border-radius:5px;
     color: #FF0900;
     background: black;
     text-align: center;

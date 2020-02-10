@@ -4,18 +4,20 @@ html
         link(href='/css/style.css', rel='stylesheet', type='text/css')
         script(src="script.js")
     body
-    nav(class="navBar")
+        div(id="WelcomeDiv")
+            h1="Zombies and Unicorns!"
+        nav(class="navBar")
             ul
                 li
                     a.foo_link(href='/') Home
                 li
-                    a.foo_link(href='/gameScreen') Play
-                if loggedIn
-                    li
-                        a.foo_link(href='/logout') Logout
-                else
-                    li
-                        a.foo_link(href='/login') Login
-                    li
-                        a.foo_link(href='/register') Register
+                    a.foo_link(href='/gameScreen') Play        
+                li
+                    a.foo_link(href='/logout') Logout
+                li
+                    a.foo_link(href='/login') Login
+                li
+                    a.foo_link(href='/register') Register
+                li
+                    a.foo_link(href='/userInfo') My Account
     block body
