@@ -17,6 +17,7 @@ const ObjectId = Schema.ObjectId;
 
 const UserSchema = new Schema({
     username : String,
+    password : String,
     userId : Number,
     score : Number,
     gamesPlayed : Number,
@@ -116,6 +117,12 @@ router.route("/register").get(
 
     function(req, res){
         res.render('userRegister')
+    }
+)
+
+router.route("/register").post(
+    function(req,res){
+
     }
 )
 
