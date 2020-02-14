@@ -49,8 +49,8 @@ router.route("/login").get(
 );
 
 router.route("/login").post(
-    async function (req, res) {
-        var user;
+    function (req, res) {
+
         mongo_controller.loginUser(req.body.username, req.body.password, (user, err) => {
             if (err) {
                 var model = {
@@ -63,42 +63,16 @@ router.route("/login").post(
 
             if (user) {
                 req.session.user = user;
+                res.redirect("/games")
             }
         });
-        var user = await User.findOne({username:req.body.username});
-        var valid = false;
-        var valid = false;
-        if(user){
-            valid = await bcrypt.compare(req.body.password, user.password);
-        }
-
-        if(user && valid){
-            console.log(user);
-            req.session.username = user.username;
-            req.session.userId = user._id;
-            req.session.isAdmin = user.roles.includes("Admin");
-            res.redirect("/games");
-        }else{
-            req.session.username = null;
-            req.session.userId = null;
-            req.session.isAdmin = null;
-
-            var model = {
-                title : "Login Page",
-                message: "Failed login!"
-            }
-
-            res.render("userLogin", model);
-        }
     }
 );
 
 router.route("/logout").get(
     function (req, res) {
         // Need to clear our session logout
-        req.session.username = null;
-        req.session.userid = null;
-        req.session.isAdmin = null;
+        req.session.user = null;
 
         res.redirect("/");
     }
