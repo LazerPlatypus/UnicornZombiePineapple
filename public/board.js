@@ -59,7 +59,6 @@ class Zombie {
             ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
         }
     }
-
 }
 
 zombies.push(new Zombie(50, 50));
