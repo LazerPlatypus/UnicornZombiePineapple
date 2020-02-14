@@ -1,11 +1,10 @@
 extends header
 append body  
-    form(id="registerBox", action="/register", method="post", class="loginBox")
+    form(id="registerBox", action="/register", method="Post", class="loginBox")
         div
             label(class="checkoutLabel")="Username "
             input(type="text", name="username")
         div
             label(class="checkoutLabel")="Password "
             input(type="password", name="password")
-        div
-            button(type='submit', class="submitOrder")="Register"
+        input(value="Register" type='submit', class="submitOrder")
