@@ -1,6 +1,7 @@
 var zombies = [];
 var canvas;
 var ctx;
+var pineapples;
 
 menu();
 
@@ -170,7 +171,7 @@ function component(width, height, type, x, y){
     //update the component(do this every frame?)
     this.update = function() {
         ctx = myGameArea.context;
-        if(type = "wall"){
+        if(type == "wall"){
             ctx.fillStyle = Blue;
         }else if("zombie"){
             var img = new Image;
@@ -212,4 +213,8 @@ function component(width, height, type, x, y){
         }
         return crash;
   }
+}
+
+function drawObstacles(){
+    component(10,10,"wall", 10,10);
 }
