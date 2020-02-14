@@ -8,19 +8,19 @@ function menu() {
     var option1 = {
         x: 150,
         y: 120,
-        width: 190,
+        width: 390,
         height: 70
     };
     var option2 = {
         x: 150,
         y: 210,
-        width: 190,
+        width: 390,
         height: 70
     };
     var option3 = {
         x: 150,
         y: 300,
-        width: 190,
+        width: 390,
         height: 70
     };
 
