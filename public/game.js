@@ -133,7 +133,6 @@ function updateBoard() {
     drawGameBoard();
 
     zombies.forEach(function (item) { item.draw() });
-
 }
 
 class Zombie {
@@ -158,4 +157,59 @@ class Zombie {
             ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
         }
     }
+}
+
+//this is for the walls and pineapples
+function component(width, height, type, x, y){
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;
+    this.x = x;
+    this.y = y;
+    //update the component(do this every frame?)
+    this.update = function() {
+        ctx = myGameArea.context;
+        if(type = "wall"){
+            ctx.fillStyle = Blue;
+        }else if("zombie"){
+            var img = new Image;
+            img.src = "/tempZombie.jpg";
+            img.onload = function () {
+                ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
+            }
+        }else if("unicorn"){
+            var img = new Image;
+            img.src = "/tempZombie.jpg";
+            img.onload = function () {
+                ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
+            }
+        }
+        
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+    //set position
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+    }
+    //this will let us know if it crashed with something else
+    this.crashWith = function(otherobj) {
+        var myleft = this.x;
+        var myright = this.x + (this.width);
+        var mytop = this.y;
+        var mybottom = this.y + (this.height);
+        var otherleft = otherobj.x;
+        var otherright = otherobj.x + (otherobj.width);
+        var othertop = otherobj.y;
+        var otherbottom = otherobj.y + (otherobj.height);
+        var crash = true;
+        if ((mybottom < othertop) ||
+        (mytop > otherbottom) ||
+        (myright < otherleft) ||
+        (myleft > otherright)) {
+            crash = false;
+        }
+        return crash;
+  }
 }
