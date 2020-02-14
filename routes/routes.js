@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const mongo_controller = require('../scripts/mongo_controller.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -32,7 +33,12 @@ const router = express.Router();
 
 router.route("/").get(
     function(req, res){
-        res.render('index')
+        var model = {
+            username: req.session.username,
+            isAdmin: req.session.isAdmin
+        }
+
+        res.render('index', model)
     }
 )
 
@@ -126,16 +132,16 @@ router.route("/logout").get(
 )
 
 router.route("/register").get(
+    function(req, res){
 
-    async function(req, res){
+        console.log(req.session)
         res.render('userRegister')
     }
 )
 
 router.route("/register").post(
-    function(req,res){
-        
-
+    async function(req,res){
+        console.log(req.body)
         res.redirect("/");
     }
 )
