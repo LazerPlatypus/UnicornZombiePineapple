@@ -7,16 +7,4 @@ append body
         id="gameCanvas"
     )
 
-    script.
-        var myGameArea = {
-            canvas : document.getElementById("gameCanvas"),
-            start : function() {
-                this.context = this.canvas.getContext("2d");
-                document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-                this.frameNo = 0;
-            },
-            clear : function() {
-                this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            }
-        }
-    script(src="board.js")
+    script(src="game.js")
