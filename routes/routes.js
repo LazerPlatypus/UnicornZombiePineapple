@@ -1,34 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const mongo_controller = require('../scripts/mongo_controller.js');
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
-// var databaseUrl = "mongodb+srv://Admin:Admin123@cluster-hsisi.mongodb.net/test?retryWrites=true&w=majority"
-// var userCollectionName = "users";
-
-// mongoose.connect(databaseUrl, {
-//     useNewUrlParser : true,
-//     useUnifiedTopology : true
-// });
-
-// const Schema = mongoose.Schema;
-// const ObjectId = Schema.ObjectId;
-
-// const UserSchema = new Schema({
-//     username : String,
-//     password : String,
-//     userId : Number,
-//     score : Number,
-//     gamesPlayed : Number,
-//     gameName : String,
-//     losses : Number,
-//     wins : Number,
-//     isAdmin : Boolean
-// });
-
-// const User = mongoose.model(userCollectionName, UserSchema);
-
+const auth = require('../scripts/auth.js');
 const router = express.Router();
 
 router.route("/").get(
@@ -55,8 +28,8 @@ router.route("/login").get(
 );
 
 router.route("/login").post(
-    async function (req, res) {
-        var user;
+    function (req, res) {
+
         mongo_controller.loginUser(req.body.username, req.body.password, (user, err) => {
             if (err) {
                 var model = {
@@ -69,42 +42,16 @@ router.route("/login").post(
 
             if (user) {
                 req.session.user = user;
+                res.redirect("/games")
             }
         });
-        var user = await User.findOne({username:req.body.username});
-        var valid = false;
-        var valid = false;
-        if(user){
-            valid = await bcrypt.compare(req.body.password, user.password);
-        }
-
-        if(user && valid){
-            console.log(user);
-            req.session.username = user.username;
-            req.session.userId = user._id;
-            req.session.isAdmin = user.roles.includes("Admin");
-            res.redirect("/games");
-        }else{
-            req.session.username = null;
-            req.session.userId = null;
-            req.session.isAdmin = null;
-
-            var model = {
-                title : "Login Page",
-                message: "Failed login!"
-            }
-
-            res.render("userLogin", model);
-        }
     }
 );
 
 router.route("/logout").get(
     function (req, res) {
         // Need to clear our session logout
-        req.session.username = null;
-        req.session.userid = null;
-        req.session.isAdmin = null;
+        req.session.user = null;
 
         res.redirect("/");
     }
@@ -113,14 +60,20 @@ router.route("/logout").get(
 router.route("/gameScreen").get(
     
     function(req, res){
-        res.render('game')
+        auth.requireLogin(req, res, () => {
+            res.render('game');
+
+        });
     }
 )
 
 router.route("/userInfo").get(
 
     function(req, res){
-        res.render('userInfo')
+        auth.requireLogin(req, res, () => {
+            res.render('userInfo');
+
+        });
     }
 )
 
@@ -140,8 +93,22 @@ router.route("/register").get(
 )
 
 router.route("/register").post(
-    async function(req,res){
-        console.log(req.body)
+    function(req,res){ 
+        mongo_controller.createUser(req.body.username, req.body.password, (user, err) => {
+            if (err) {
+                var model = {
+                    title: 'Register Page',
+                    message: err
+                };
+                res.render('userRegister', model);
+                return;
+            }
+            if (user) {
+                req.session.user = user;
+                res.redirect("/games");
+            }
+        })
+
         res.redirect("/");
     }
 )
