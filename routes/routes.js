@@ -82,8 +82,21 @@ router.route("/register").get(
 )
 
 router.route("/register").post(
-    function(req,res){
-        
+    function(req,res){ 
+        mongo_controller.createUser(req.body.username, req.body.password, (user, err) => {
+            if (err) {
+                var model = {
+                    title: 'Register Page',
+                    message: err
+                };
+                res.render('userRegister', model);
+                return;
+            }
+            if (user) {
+                req.session.user = user;
+                res.redirect("/games");
+            }
+        })
 
         res.redirect("/");
     }
