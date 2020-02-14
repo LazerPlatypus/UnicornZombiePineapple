@@ -3,7 +3,6 @@ const mongo_controller = require('../scripts/mongo_controller.js');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-
 // var databaseUrl = "mongodb+srv://Admin:Admin123@cluster-hsisi.mongodb.net/test?retryWrites=true&w=majority"
 // var userCollectionName = "users";
 
@@ -15,17 +14,17 @@ const saltRounds = 10;
 // const Schema = mongoose.Schema;
 // const ObjectId = Schema.ObjectId;
 
-const UserSchema = new Schema({
-    username : String,
-    password : String,
-    userId : Number,
-    score : Number,
-    gamesPlayed : Number,
-    gameName : String,
-    losses : Number,
-    wins : Number,
-    isAdmin : Boolean
-});
+// const UserSchema = new Schema({
+//     username : String,
+//     password : String,
+//     userId : Number,
+//     score : Number,
+//     gamesPlayed : Number,
+//     gameName : String,
+//     losses : Number,
+//     wins : Number,
+//     isAdmin : Boolean
+// });
 
 // const User = mongoose.model(userCollectionName, UserSchema);
 
@@ -58,7 +57,6 @@ router.route("/login").post(
                     title: 'Login Page',
                     message: err
                 };
-
                 res.render("userLogin", model);
                 return;
             }
@@ -129,14 +127,16 @@ router.route("/logout").get(
 
 router.route("/register").get(
 
-    function(req, res){
+    async function(req, res){
         res.render('userRegister')
     }
 )
 
 router.route("/register").post(
     function(req,res){
+        
 
+        res.redirect("/");
     }
 )
 
