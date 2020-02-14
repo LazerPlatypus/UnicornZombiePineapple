@@ -60,20 +60,19 @@ router.route("/logout").get(
 router.route("/gameScreen").get(
     
     function(req, res){
-        auth.requireLogin(req, res, () => {
+        //auth.requireLogin(req, res, () => {
             res.render('game');
-
-        });
+        //});
     }
 )
 
 router.route("/userInfo").get(
 
     function(req, res){
-        auth.requireLogin(req, res, () => {
+        //auth.requireLogin(req, res, () => {
             res.render('userInfo');
 
-        });
+        //});
     }
 )
 
