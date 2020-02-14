@@ -80,6 +80,15 @@ router.route("/login").post(
     }
 );
 
+router.route("deleteProfile").get(
+    function (req, res) {
+        if(user._id.includes(req.session.userId)) {
+            var thisUser = user.get(user._id);
+            User.deleteOne(thisUser);
+        }
+    }
+);
+
 router.route("/logout").get(
     function (req, res) {
         // Need to clear our session logout
