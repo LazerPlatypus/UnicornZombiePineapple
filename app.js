@@ -16,7 +16,9 @@ app.use(session({
 app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname+'/public')))
 
-app.use("/", routes);
+app.use("/", express.urlencoded({ extended: true }), routes);
+// app.use(express.urlencoded({ extended: true }));
+
 
 app.listen(port, function(){
     console.log("Listening on port: " + port);

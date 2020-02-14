@@ -1,5 +1,6 @@
 extends header
-append body  
-    a(href='/gameScreen')
-        div
-            h2="Single player!"
+append body   
+    a(id="gameLink" href='/gameScreen' style="display: inline-block;")
+        div(id="gameDiv")
+            h2(id="choiceText")="Single player!"
+                
