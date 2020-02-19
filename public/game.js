@@ -84,27 +84,27 @@ function menu() {
     ctx.stroke();
     ctx.closePath();
 
-    //second option
-    var fillStyleBtn = 'rgba(255,255,255,255)';
-    ctx.beginPath();
-    ctx.rect(150, 210, 390, 70);
-    ctx.fillStyle = fillStyleBtn;
-    ctx.fill();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = '#000000';
-    ctx.stroke();
-    ctx.closePath();
+    // //second option
+    // var fillStyleBtn = 'rgba(255,255,255,255)';
+    // ctx.beginPath();
+    // ctx.rect(150, 210, 390, 70);
+    // ctx.fillStyle = fillStyleBtn;
+    // ctx.fill();
+    // ctx.lineWidth = 2;
+    // ctx.strokeStyle = '#000000';
+    // ctx.stroke();
+    // ctx.closePath();
 
-    //third option
-    var fillStyleBtn = 'rgba(255,255,255,255)';
-    ctx.beginPath();
-    ctx.rect(150, 300, 390, 70);
-    ctx.fillStyle = fillStyleBtn;
-    ctx.fill();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = '#000000';
-    ctx.stroke();
-    ctx.closePath();
+    // //third option
+    // var fillStyleBtn = 'rgba(255,255,255,255)';
+    // ctx.beginPath();
+    // ctx.rect(150, 300, 390, 70);
+    // ctx.fillStyle = fillStyleBtn;
+    // ctx.fill();
+    // ctx.lineWidth = 2;
+    // ctx.strokeStyle = '#000000';
+    // ctx.stroke();
+    // ctx.closePath();
 
     //this is for the text
     ctx.font = "48px serif";
@@ -114,8 +114,8 @@ function menu() {
     ctx.font = "38px serif";
 
     ctx.fillText("Play Solo Game", canvas.width / 2, 165);
-    ctx.fillText("Start Multiplayer Game", canvas.width / 2, 255);
-    ctx.fillText("Join Multiplayer Game", canvas.width / 2, 345);
+    //ctx.fillText("Start Multiplayer Game", canvas.width / 2, 255);
+    //ctx.fillText("Join Multiplayer Game", canvas.width / 2, 345);
 
 
     function getMousePos(canvas, event) {
@@ -287,6 +287,11 @@ function drawObstacles(){
     for(const comp of components){
         comp.update();
     }
+
+
+    var z1 = new component(50,50,types.ZOMBIE, 70, 70);
+    zombies = [z1];
+    z1.update();
 }
 
 function createZombies() {
