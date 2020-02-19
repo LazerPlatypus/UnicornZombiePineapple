@@ -1,12 +1,12 @@
 extends header.pug
 append body
     div
-        label(class="userInfoLabel")="Username :"
+        label(class="userInfoLabel")="Username : "+user.username
     div
-        label(class="userInfoLabel")="Games Played  :"
+        label(class="userInfoLabel")="Games Played  :"+user.gamesPlayed
     div
-        label(class="userInfoLabel")="Score :"
+        label(class="userInfoLabel")="Score :"+user.score
     div
-        label(class="userInfoLabel")="Wins :"
+        label(class="userInfoLabel")="Wins :"+user.wins
     div
-        label(class="userInfoLabel")="Losses :"
+        label(class="userInfoLabel")="Losses :"+user.losses

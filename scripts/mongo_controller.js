@@ -1,6 +1,6 @@
 // imports
 const mongoose = require('mongoose');
-
+const password_manager = require('./password_manager.js');
 // consts
 const databaseUrl = "mongodb+srv://Admin:Admin123@cluster-hsisi.mongodb.net/test?retryWrites=true&w=majority"
 const userCollectionName = "users";
@@ -29,8 +29,8 @@ const UserSchema = new Schema({
 // create user object
 exports.user = mongoose.model(userCollectionName, UserSchema);
 
-exports.createUser = (user, callback) => {
-    this.user.find({user:user.username}, (err, found_user) => {
+exports.createUser = (username, password, callback) => {
+    this.user.find({user:username}, (err, found_user) => {
         if (err) {
             return callback(undefined, err);
         }
@@ -39,7 +39,7 @@ exports.createUser = (user, callback) => {
             return callback(undefined, 'Username already Exists!');
 
         } else {
-            password_manager.encryptPassword(user.password, (err, hash) => {
+            password_manager.encrypt_password(password, (err, hash) => {
                 if (err) {
                     return callback(undefined, err);
                 }
@@ -48,7 +48,7 @@ exports.createUser = (user, callback) => {
                     new_user.save();
                     // build safe user
                     let safe_user = createSafeUser(new_user);
-                    return callback(safe_user, 'User created Successfully!');
+                    return callback(safe_user, undefined);
                 } else {
 
                     return callback(undefined, 'Error in creating password.');
@@ -65,13 +65,13 @@ exports.loginUser = (username, password, callback) => {
         }
 
         if (found_user[0]) {
-            password_manager.checkPasswordAgainstHash(password, found_user[0].password, (err, passwords_match) => {
+            password_manager.check_password_against_hash(password, found_user[0].password, (err, passwords_match) => {
                 if (err) {
                     return callback(undefined, err);
                 }
                 if (passwords_match) {
                     let safe_user = createSafeUser(found_user[0]);
-                    return callback(safe_user, 'Logged in successfully');
+                    return callback(safe_user, undefined);
                 } else {
                     return callback(undefined, 'Incorrect Username or Password');
                 }
