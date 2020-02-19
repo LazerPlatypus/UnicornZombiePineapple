@@ -207,10 +207,9 @@ function component(width, height, type, x, y){
     this.y = y;
     //update the component(do this every frame?)
     this.update = function() {
-
         if(this.type == types.WALL){
             console.log("wall");
-            ctx.fillStyle = 'red';
+            ctx.fillStyle = 'blue';
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }else if(this.type == types.ZOMBIE){
             var img = new Image;
@@ -261,6 +260,13 @@ function component(width, height, type, x, y){
 }
 
 function drawObstacles(){
-    var c1 = new component(100,100,types.WALL,100,100);
+    var c1 = new component(700,10,types.WALL,0,0);
+    var c2 = new component(10,500,types.WALL,0,0);
+    var c3 = new component(700,10,types.WALL,0,490);
+    var c4 = new component(10,500,types.WALL,690,0);
     c1.update();
+    c2.update();
+    c3.update();
+    c4.update();
+
 }
