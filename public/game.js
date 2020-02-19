@@ -1,4 +1,4 @@
-var zombies = [];
+// var zombies = [];
 var canvas;
 var ctx;
 var pineapples;
@@ -168,47 +168,52 @@ function drawGameBoard() {
     drawObstacles();
 }
 
-function updateBoard() {
-    clearCanvas();
-    drawGameBoard();
-    zombies.forEach(function (item) { item.draw() });
-}
+// function updateBoard() {
+//     clearCanvas();
+//     drawGameBoard();
+//     zombies.forEach(function (item) { item.draw() });
+// }
 
-class Zombie {
+// class Zombie {
 
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.zombieHeight = 40;
-        this.zombieWidth = 40;
-    }
+//     constructor(x, y) {
+//         this.x = x;
+//         this.y = y;
+//         this.zombieHeight = 40;
+//         this.zombieWidth = 40;
+//     }
 
-    draw() {
-        var ctx = document.getElementById('gameCanvas').getContext('2d')
-        var img = new Image;
-        var xPos = this.x;
-        var yPos = this.y;
-        var zombieH = this.zombieHeight;
-        var zombieW = this.zombieWidth;
+//     draw() {
+//         var ctx = document.getElementById('gameCanvas').getContext('2d')
+//         var img = new Image;
+//         var xPos = this.x;
+//         var yPos = this.y;
+//         var zombieH = this.zombieHeight;
+//         var zombieW = this.zombieWidth;
 
-        img.src = "/tempZombie.jpg";
-        img.onload = function () {
-            ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
-        }
-    }
-}
+//         img.src = "/tempZombie.jpg";
+//         img.onload = function () {
+//             ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
+//         }
+//     }
+// }
 
 //this is for the walls and pineapples
 function component(width, height, type, x, y){
     this.width = width;
     this.height = height;
-    this.speedX = 0;
-    this.speedY = 0;
+    this.speedX = 50;
+    this.speedY = 50;
     this.type = type;
     this.x = x;
     this.y = y;
     //update the component(do this every frame?)
     this.update = function() {
+        var xPos = this.x;
+        var yPos = this.y;
+        var heightVal = this.height;
+        var widthVal = this.width;
+
         if(this.type == types.WALL){
             ctx.fillStyle = 'blue';
             ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -216,19 +221,20 @@ function component(width, height, type, x, y){
             var img = new Image;
             img.src = "/tempZombie.jpg";
             img.onload = function () {
-                ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
+                console.log(heightVal)
+                ctx.drawImage(img, xPos, yPos, widthVal, heightVal);
             }
         }else if(this.type == types.UNICORN){
             var img = new Image;
             img.src = "/tempZombie.jpg";
             img.onload = function () {
-                ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
+                ctx.drawImage(img, xPos, yPos, widthVal, heightVal);
             }
         }else if(this.type == types.PINEAPPLE){
             var img = new Image;
             img.src = "/tempZombie.jpg";
             img.onload = function () {
-                ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
+                ctx.drawImage(img, xPos, yPos, widthVal, heightVal);
             }
         }else{
             throw err;
