@@ -1,4 +1,4 @@
-// var zombies = [];
+var zombies = [];
 var canvas;
 var ctx;
 var pineapples;
@@ -302,4 +302,9 @@ function drawObstacles(){
     for(const comp of components){
         comp.update();
     }
+
+
+    var z1 = new component(50,50,types.ZOMBIE, 70, 70);
+    zombies = [z1];
+    z1.update();
 }
