@@ -1,4 +1,5 @@
-// var zombies = [];
+var zombies = [];
+var walls = [];
 var canvas;
 var ctx;
 var pineapples;
@@ -166,35 +167,11 @@ function drawGameBoard() {
     drawObstacles();
 }
 
-// function updateBoard() {
-//     clearCanvas();
-//     drawGameBoard();
-//     zombies.forEach(function (item) { item.draw() });
-// }
-
-// class Zombie {
-
-//     constructor(x, y) {
-//         this.x = x;
-//         this.y = y;
-//         this.zombieHeight = 40;
-//         this.zombieWidth = 40;
-//     }
-
-//     draw() {
-//         var ctx = document.getElementById('gameCanvas').getContext('2d')
-//         var img = new Image;
-//         var xPos = this.x;
-//         var yPos = this.y;
-//         var zombieH = this.zombieHeight;
-//         var zombieW = this.zombieWidth;
-
-//         img.src = "/tempZombie.jpg";
-//         img.onload = function () {
-//             ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
-//         }
-//     }
-// }
+function updateBoard() {
+    clearCanvas();
+    drawGameBoard();
+    updateZombies();
+}
 
 //this is for the walls and pineapples
 function component(width, height, type, x, y){
@@ -219,7 +196,6 @@ function component(width, height, type, x, y){
             var img = new Image;
             img.src = "/tempZombie.jpg";
             img.onload = function () {
-                console.log(heightVal)
                 ctx.drawImage(img, xPos, yPos, widthVal, heightVal);
             }
         }else if(this.type == types.UNICORN){
@@ -239,10 +215,27 @@ function component(width, height, type, x, y){
         }
     }
     //set position
-    this.newPos = function() {
+    // this.newPos = function() {
+    //     this.x += this.speedX;
+    //     this.y += this.speedY;
+    // }
+
+    this.moveRight = function() {
         this.x += this.speedX;
+    }
+
+    this.moveLeft = function() {
+        this.x -= this.speedX;
+    }
+
+    this.moveUp = function() {
+        this.y -= this.speedY;
+    }
+
+    this.moveDown = function() {
         this.y += this.speedY;
     }
+
     //this will let us know if it crashed with something else
     this.crashWith = function(otherobj) {
         var myleft = this.x;
@@ -274,4 +267,12 @@ function drawObstacles(){
     c3.update();
     c4.update();
 
+}
+
+function createZombies() {
+    zombies.push(new component(50, 50, types.ZOMBIE, 10, 10));
+}
+
+function updateZombies() {
+    zombies.forEach(function (item) { item.update() });
 }
