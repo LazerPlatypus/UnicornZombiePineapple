@@ -1,4 +1,5 @@
 var zombies = [];
+var walls = [];
 var canvas;
 var ctx;
 var pineapples;
@@ -82,27 +83,27 @@ function menu() {
     ctx.stroke();
     ctx.closePath();
 
-    //second option
-    var fillStyleBtn = 'rgba(255,255,255,255)';
-    ctx.beginPath();
-    ctx.rect(150, 210, 390, 70);
-    ctx.fillStyle = fillStyleBtn;
-    ctx.fill();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = '#000000';
-    ctx.stroke();
-    ctx.closePath();
+    // //second option
+    // var fillStyleBtn = 'rgba(255,255,255,255)';
+    // ctx.beginPath();
+    // ctx.rect(150, 210, 390, 70);
+    // ctx.fillStyle = fillStyleBtn;
+    // ctx.fill();
+    // ctx.lineWidth = 2;
+    // ctx.strokeStyle = '#000000';
+    // ctx.stroke();
+    // ctx.closePath();
 
-    //third option
-    var fillStyleBtn = 'rgba(255,255,255,255)';
-    ctx.beginPath();
-    ctx.rect(150, 300, 390, 70);
-    ctx.fillStyle = fillStyleBtn;
-    ctx.fill();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = '#000000';
-    ctx.stroke();
-    ctx.closePath();
+    // //third option
+    // var fillStyleBtn = 'rgba(255,255,255,255)';
+    // ctx.beginPath();
+    // ctx.rect(150, 300, 390, 70);
+    // ctx.fillStyle = fillStyleBtn;
+    // ctx.fill();
+    // ctx.lineWidth = 2;
+    // ctx.strokeStyle = '#000000';
+    // ctx.stroke();
+    // ctx.closePath();
 
     //this is for the text
     ctx.font = "48px serif";
@@ -112,8 +113,8 @@ function menu() {
     ctx.font = "38px serif";
 
     ctx.fillText("Play Solo Game", canvas.width / 2, 165);
-    ctx.fillText("Start Multiplayer Game", canvas.width / 2, 255);
-    ctx.fillText("Join Multiplayer Game", canvas.width / 2, 345);
+    //ctx.fillText("Start Multiplayer Game", canvas.width / 2, 255);
+    //ctx.fillText("Join Multiplayer Game", canvas.width / 2, 345);
 
 
     function getMousePos(canvas, event) {
@@ -159,44 +160,15 @@ function clearCanvas() {
 }
 
 function drawGameBoard() {
-    var img = new Image;
-    // img.src = "/boardBackground.png";
-    // img.onload = function () {
-    //     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    // }
-    
     drawObstacles();
+    createZombies();
 }
 
-// function updateBoard() {
-//     clearCanvas();
-//     drawGameBoard();
-//     zombies.forEach(function (item) { item.draw() });
-// }
-
-// class Zombie {
-
-//     constructor(x, y) {
-//         this.x = x;
-//         this.y = y;
-//         this.zombieHeight = 40;
-//         this.zombieWidth = 40;
-//     }
-
-//     draw() {
-//         var ctx = document.getElementById('gameCanvas').getContext('2d')
-//         var img = new Image;
-//         var xPos = this.x;
-//         var yPos = this.y;
-//         var zombieH = this.zombieHeight;
-//         var zombieW = this.zombieWidth;
-
-//         img.src = "/tempZombie.jpg";
-//         img.onload = function () {
-//             ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
-//         }
-//     }
-// }
+function updateBoard() {
+    clearCanvas();
+    drawGameBoard();
+    updateZombies();
+}
 
 //this is for the walls and pineapples
 function component(width, height, type, x, y){
@@ -207,6 +179,7 @@ function component(width, height, type, x, y){
     this.type = type;
     this.x = x;
     this.y = y;
+
     //update the component(do this every frame?)
     this.update = function() {
         var xPos = this.x;
@@ -221,7 +194,6 @@ function component(width, height, type, x, y){
             var img = new Image;
             img.src = "/tempZombie.jpg";
             img.onload = function () {
-                console.log(heightVal)
                 ctx.drawImage(img, xPos, yPos, widthVal, heightVal);
             }
         }else if(this.type == types.UNICORN){
@@ -240,11 +212,23 @@ function component(width, height, type, x, y){
             throw err;
         }
     }
-    //set position
-    this.newPos = function() {
+
+    this.moveRight = function() {
         this.x += this.speedX;
+    }
+
+    this.moveLeft = function() {
+        this.x -= this.speedX;
+    }
+
+    this.moveUp = function() {
+        this.y -= this.speedY;
+    }
+
+    this.moveDown = function() {
         this.y += this.speedY;
     }
+
     //this will let us know if it crashed with something else
     this.crashWith = function(otherobj) {
         var myleft = this.x;
@@ -263,7 +247,7 @@ function component(width, height, type, x, y){
             crash = false;
         }
         return crash;
-  }
+   }
 }
 
 function drawObstacles(){
@@ -307,4 +291,12 @@ function drawObstacles(){
     var z1 = new component(50,50,types.ZOMBIE, 70, 70);
     zombies = [z1];
     z1.update();
+}
+
+function createZombies() {
+    zombies.push(new component(50, 50, types.ZOMBIE, 10, 10));
+}
+
+function updateZombies() {
+    zombies.forEach(function (item) { item.update() });
 }
