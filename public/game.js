@@ -160,13 +160,8 @@ function clearCanvas() {
 }
 
 function drawGameBoard() {
-    var img = new Image;
-    // img.src = "/boardBackground.png";
-    // img.onload = function () {
-    //     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    // }
-    
     drawObstacles();
+    createZombies();
 }
 
 function updateBoard() {
@@ -184,6 +179,7 @@ function component(width, height, type, x, y){
     this.type = type;
     this.x = x;
     this.y = y;
+
     //update the component(do this every frame?)
     this.update = function() {
         var xPos = this.x;
@@ -216,11 +212,6 @@ function component(width, height, type, x, y){
             throw err;
         }
     }
-    //set position
-    // this.newPos = function() {
-    //     this.x += this.speedX;
-    //     this.y += this.speedY;
-    // }
 
     this.moveRight = function() {
         this.x += this.speedX;
@@ -256,7 +247,7 @@ function component(width, height, type, x, y){
             crash = false;
         }
         return crash;
-  }
+   }
 }
 
 function drawObstacles(){
