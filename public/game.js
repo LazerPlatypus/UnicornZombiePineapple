@@ -1,5 +1,6 @@
 var zombies = [];
 var walls = [];
+var unicorn;
 var canvas;
 var ctx;
 var pineapples;
@@ -162,11 +163,11 @@ function clearCanvas() {
 function drawGameBoard() {
     drawObstacles();
     createZombies();
+    updateZombies();
 }
 
 function updateBoard() {
     clearCanvas();
-    drawGameBoard();
     updateZombies();
 }
 
@@ -289,9 +290,24 @@ function drawObstacles(){
 }
 
 function createZombies() {
-    zombies.push(new component(50, 50, types.ZOMBIE, 10, 10));
+    this.zombieHeight = 50;
+    this.zombieWidth = 50;
+
+    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 10));
+    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 60));
+
 }
 
 function updateZombies() {
     zombies.forEach(function (item) { item.update() });
 }
+
+function createUnicorn() {
+    unicorn = new component(50, 50, types.UNICORN, 10, 10)
+}
+
+function updateUnicorn() {
+    unicorn.update()
+}
+
+
