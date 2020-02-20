@@ -62,3 +62,8 @@ li a:hover {
 body{
     background-color: darkgray;
 }
+
+button {
+    height: 40px;
+    width: 80px;
+}

@@ -39,6 +39,7 @@ class Button{
         ctx.fillText(text, canvas.width / 2, 165);
     }
 }
+
 function menu() {
     var option1 = {
         x: 150,
@@ -161,14 +162,19 @@ function clearCanvas() {
 }
 
 function drawGameBoard() {
-    drawObstacles();
+    createWalls();
+    drawWalls();
     createZombies();
     updateZombies();
+    createUnicorn();
+    updateUnicorn();
 }
 
 function updateBoard() {
     clearCanvas();
+    drawWalls();
     updateZombies();
+    updateUnicorn();
 }
 
 //this is for the walls and pineapples
@@ -193,13 +199,13 @@ function component(width, height, type, x, y){
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }else if(this.type == types.ZOMBIE){
             var img = new Image;
-            img.src = "/tempZombie.jpg";
+            img.src = "/resources/Zombies/zombie-head.png";
             img.onload = function () {
                 ctx.drawImage(img, xPos, yPos, widthVal, heightVal);
             }
         }else if(this.type == types.UNICORN){
             var img = new Image;
-            img.src = "/tempZombie.jpg";
+            img.src = "/resources/Unicorns/cute-unicorn-cropped.png";
             img.onload = function () {
                 ctx.drawImage(img, xPos, yPos, widthVal, heightVal);
             }
@@ -251,7 +257,7 @@ function component(width, height, type, x, y){
    }
 }
 
-function drawObstacles(){
+function createWalls(){
 
     //outer walls
     var c1 = new component(700,10,types.WALL,0,0);
@@ -284,14 +290,18 @@ function drawObstacles(){
     var c20 = new component(10,60,types.WALL,450,380);
 
     components = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20];
+    
+
+
+    // var z1 = new component(50,50,types.ZOMBIE, 70, 70);
+    // zombies = [z1];
+    // z1.update();
+}
+
+function drawWalls() {
     for(const comp of components){
         comp.update();
     }
-
-
-    var z1 = new component(50,50,types.ZOMBIE, 70, 70);
-    zombies = [z1];
-    z1.update();
 }
 
 function createZombies() {
@@ -308,11 +318,29 @@ function updateZombies() {
 }
 
 function createUnicorn() {
-    unicorn = new component(50, 50, types.UNICORN, 10, 10)
+    unicorn = new component(50, 50, types.UNICORN, 60, 10)
 }
 
 function updateUnicorn() {
     unicorn.update()
 }
 
+function moveLeftClicked() {
+    unicorn.moveLeft()
+    updateBoard()
+}
 
+function moveUpClicked() {
+    unicorn.moveUp()
+    updateBoard()
+}
+
+function moveRightClicked() {
+    unicorn.moveRight()
+    updateBoard()
+}
+
+function moveDownClicked() {
+    unicorn.moveDown()
+    updateBoard()
+}
