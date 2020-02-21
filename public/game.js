@@ -314,7 +314,27 @@ function createZombies() {
 }
 
 function updateZombies() {
-    zombies.forEach(function (item) { item.moveRight(); item.update() });
+    zombies.forEach(function (item) { 
+        var randNum = Math.floor(Math.random() * 4);
+
+        switch (randNum) {
+            default:
+            case 0:
+                item.moveDown();
+                break;
+            case 1:
+                item.moveLeft();
+                break;
+            case 2:
+                item.moveRight();
+                break;
+            case 3:
+                item.moveUp();
+                break;
+        }
+
+        item.update();
+    });
 }
 
 function createUnicorn() {
