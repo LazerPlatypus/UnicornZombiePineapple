@@ -4,6 +4,8 @@ var unicorn;
 var canvas;
 var ctx;
 var pineapples = [];
+var moveCounter = 0;
+var numOfMovesUntilNewZombie = 10;
 const types = {
     WALL : 1,
     PINEAPPLE : 2,
@@ -164,12 +166,12 @@ function clearCanvas() {
 function drawGameBoard() {
     createWalls();
     drawWalls();
-    createZombies();
-    updateZombies();
     createUnicorn();
     updateUnicorn();
     createPineapples();
     updatePinapples();
+    createZombies();
+    updateZombies();
 }
 
 function updateBoard() {
@@ -281,17 +283,51 @@ function createZombies() {
     this.zombieHeight = 50;
     this.zombieWidth = 50;
 
-    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 10));
-    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 60));
+    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 610, 220));
+    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
 
 }
 
 function updateZombies() {
-    zombies.forEach(function (item) { item.moveRight(); item.update() });
+    zombies.forEach(function (item) { 
+        var randNum = Math.floor(Math.random() * 3);
+
+        if (randNum == 0) {
+            randNum = Math.floor(Math.random() * 4);
+
+            switch (randNum) {
+                default:
+                case 0:
+                    item.moveDown();
+                    break;
+                case 1:
+                    item.moveLeft();
+                    break;
+                case 2:
+                    item.moveRight();
+                    break;
+                case 3:
+                    item.moveUp();
+                    break;
+            }
+        } else {
+            if (unicorn.x > item.x) {
+                item.moveRight()
+            } else if (item.x > unicorn.x) {
+                item.moveLeft()
+            } else if (unicorn.y > item.y) {
+                item.moveDown()
+            } else if (item.y > unicorn.y) {
+                item.moveUp();
+            }
+        }
+
+        item.update();
+    });
 }
 
 function createUnicorn() {
-    unicorn = new component(50, 50, types.UNICORN, 10, 10)
+    unicorn = new component(50, 50, types.UNICORN, 310, 220)
 }
 
 function updateUnicorn() {
@@ -322,20 +358,44 @@ function updatePinapples(){
 
 function moveLeftClicked() {
     unicorn.moveLeft()
+
+    moveCounter += 1;
+    if (moveCounter % numOfMovesUntilNewZombie == 0) {
+        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
+    }
+
     updateBoard()
 }
 
 function moveUpClicked() {
     unicorn.moveUp()
+
+    moveCounter += 1;
+    if (moveCounter % numOfMovesUntilNewZombie == 0) {
+        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
+    }
+
     updateBoard()
 }
 
 function moveRightClicked() {
     unicorn.moveRight()
+
+    moveCounter += 1;
+    if (moveCounter % numOfMovesUntilNewZombie == 0) {
+        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
+    }
+
     updateBoard()
 }
 
 function moveDownClicked() {
     unicorn.moveDown()
+
+    moveCounter += 1;
+    if (moveCounter % numOfMovesUntilNewZombie == 0) {
+        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
+    }
+
     updateBoard()
 }
