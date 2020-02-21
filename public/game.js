@@ -3,7 +3,7 @@ var walls = [];
 var unicorn;
 var canvas;
 var ctx;
-var pineapples;
+var pineapples = [];
 const types = {
     WALL : 1,
     PINEAPPLE : 2,
@@ -11,7 +11,7 @@ const types = {
     ZOMBIE: 4
 }
 var components = [];
-
+var score = 0;
 menu();
 
 class Button{
@@ -168,6 +168,8 @@ function drawGameBoard() {
     updateZombies();
     createUnicorn();
     updateUnicorn();
+    createPineapples();
+    updatePinapples();
 }
 
 function updateBoard() {
@@ -175,6 +177,7 @@ function updateBoard() {
     drawWalls();
     updateZombies();
     updateUnicorn();
+    updatePinapples();
 }
 
 //this is for the walls and pineapples
@@ -211,7 +214,7 @@ function component(width, height, type, x, y){
             }
         }else if(this.type == types.PINEAPPLE){
             var img = new Image;
-            img.src = "/tempZombie.jpg";
+            img.src = "/resources/pineapple.png";
             img.onload = function () {
                 ctx.drawImage(img, xPos, yPos, widthVal, heightVal);
             }
@@ -243,9 +246,9 @@ function component(width, height, type, x, y){
         var mytop = this.y;
         var mybottom = this.y + (this.height);
         var otherleft = otherobj.x;
-        var otherright = otherobj.x + (otherobj.width);
+        var otherright = otherobj.x + (otherobj.width-10);
         var othertop = otherobj.y;
-        var otherbottom = otherobj.y + (otherobj.height);
+        var otherbottom = otherobj.y + (otherobj.height-10);
         var crash = true;
         if ((mybottom < othertop) ||
         (mytop > otherbottom) ||
@@ -265,37 +268,7 @@ function createWalls(){
     var c3 = new component(700,10,types.WALL,0,490);
     var c4 = new component(10,500,types.WALL,690,0);
 
-    //top left
-    var c5 = new component(60,10,types.WALL,60,60);
-    var c6 = new component(10,60,types.WALL,60,60);
-    var c7 = new component(60,10,types.WALL,180,60);
-    var c8 = new component(10,60,types.WALL,230,60);
-
-    //top right
-    var c9 = new component(60,10,types.WALL,580,60);
-    var c10 = new component(10,60,types.WALL,630,60);
-    var c11 = new component(60,10,types.WALL,450,60);
-    var c12 = new component(10,60,types.WALL,450,60);
-
-    //bottom left
-    var c13 = new component(60,10,types.WALL,60,430);
-    var c14 = new component(10,60,types.WALL,60,380);
-    var c15 = new component(60,10,types.WALL,180,430);
-    var c16 = new component(10,60,types.WALL,230,380);
-
-    //bottom right
-    var c17 = new component(60,10,types.WALL,580,430);
-    var c18 = new component(10,60,types.WALL,630,380);
-    var c19 = new component(60,10,types.WALL,450,430);
-    var c20 = new component(10,60,types.WALL,450,380);
-
-    components = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20];
-    
-
-
-    // var z1 = new component(50,50,types.ZOMBIE, 70, 70);
-    // zombies = [z1];
-    // z1.update();
+    components = [c1, c2, c3, c4];
 }
 
 function drawWalls() {
@@ -324,6 +297,28 @@ function createUnicorn() {
 function updateUnicorn() {
     unicorn.update()
 }
+
+function createPineapples(){
+    pineapples.push(new component(40, 40, types.PINEAPPLE, 10, 10));
+    pineapples.push(new component(40, 40, types.PINEAPPLE, 10, 60));
+}
+
+function updatePinapples(){
+    for(var i = 0 ; i < pineapples.length; i ++){
+        if(pineapples[i].crashWith(unicorn)){
+            score ++;
+            var scoreLabel = document.getElementById('score');
+            scoreLabel.innerHTML= "Score: " + score;
+            console.log(score);
+            pineapples.splice(i, 1);
+        }
+        else{
+            pineapples[i].update();
+        }
+    }
+}
+
+
 
 function moveLeftClicked() {
     unicorn.moveLeft()
