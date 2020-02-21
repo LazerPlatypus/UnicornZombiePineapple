@@ -352,6 +352,25 @@ function updatePinapples(){
             pineapples[i].update();
         }
     }
+    spawnPineapples();
+}
+
+function spawnPineapples(){
+
+    for(var i = 0 ; i < zombies.length; i ++){
+        var chance = Math.floor(Math.random() * 10);
+        if(chance < 2){
+            pineapples.push(new component(40, 40, types.PINEAPPLE, zombies[i].x, zombies[i].y));
+
+            for(var j = 0; j < pineapples.length; j++){
+                if(pineapples[j].crashWith(pineapples[pineapples.length])){
+
+                    pineapples.splice(i, 1);
+                }
+            }
+
+        }
+    }
 }
 
 
