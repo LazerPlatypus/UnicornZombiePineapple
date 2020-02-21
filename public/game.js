@@ -1,9 +1,9 @@
 var zombies = [];
 var walls = [];
+var pineapples = [];
 var unicorn;
 var canvas;
 var ctx;
-var pineapples = [];
 var moveCounter = 0;
 var numOfMovesUntilNewZombie = 10;
 const types = {
@@ -137,6 +137,10 @@ function menu() {
             // debugger;
             if (isInside(mousePos, option1)) {
                 clearCanvas();
+                // score = 0;
+                // zombies = [];
+                // walls = [];
+                // pineapples = [];
                 drawGameBoard();
             } else if (isInside(mousePos, option2)) {
                 //start multiplayer
@@ -292,6 +296,15 @@ function updateZombies() {
     zombies.forEach(function (item) { 
         var randNum = Math.floor(Math.random() * 3);
 
+        
+        if (item.crashWith(unicorn)) {
+            // The game should end here but I can't figure out a way to end it
+            // clearCanvas();
+            // menu();
+
+            // return;
+        }
+        
         if (randNum == 0) {
             randNum = Math.floor(Math.random() * 4);
 
@@ -345,7 +358,6 @@ function updatePinapples(){
             score ++;
             var scoreLabel = document.getElementById('score');
             scoreLabel.innerHTML= "Score: " + score;
-            console.log(score);
             pineapples.splice(i, 1);
         }
         else{
