@@ -4,6 +4,8 @@ var unicorn;
 var canvas;
 var ctx;
 var pineapples;
+var moveCounter = 0;
+var numOfMovesUntilNewZombie = 10;
 const types = {
     WALL : 1,
     PINEAPPLE : 2,
@@ -164,10 +166,10 @@ function clearCanvas() {
 function drawGameBoard() {
     createWalls();
     drawWalls();
-    createZombies();
-    updateZombies();
     createUnicorn();
     updateUnicorn();
+    createZombies();
+    updateZombies();
 }
 
 function updateBoard() {
@@ -290,12 +292,6 @@ function createWalls(){
     var c20 = new component(10,60,types.WALL,450,380);
 
     components = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20];
-    
-
-
-    // var z1 = new component(50,50,types.ZOMBIE, 70, 70);
-    // zombies = [z1];
-    // z1.update();
 }
 
 function drawWalls() {
@@ -308,29 +304,43 @@ function createZombies() {
     this.zombieHeight = 50;
     this.zombieWidth = 50;
 
-    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 10));
-    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 60));
+    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 610, 220));
+    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
 
 }
 
 function updateZombies() {
     zombies.forEach(function (item) { 
-        var randNum = Math.floor(Math.random() * 4);
+        var randNum = Math.floor(Math.random() * 3);
 
-        switch (randNum) {
-            default:
-            case 0:
-                item.moveDown();
-                break;
-            case 1:
-                item.moveLeft();
-                break;
-            case 2:
-                item.moveRight();
-                break;
-            case 3:
+        if (randNum == 0) {
+            randNum = Math.floor(Math.random() * 4);
+
+            switch (randNum) {
+                default:
+                case 0:
+                    item.moveDown();
+                    break;
+                case 1:
+                    item.moveLeft();
+                    break;
+                case 2:
+                    item.moveRight();
+                    break;
+                case 3:
+                    item.moveUp();
+                    break;
+            }
+        } else {
+            if (unicorn.x > item.x) {
+                item.moveRight()
+            } else if (item.x > unicorn.x) {
+                item.moveLeft()
+            } else if (unicorn.y > item.y) {
+                item.moveDown()
+            } else if (item.y > unicorn.y) {
                 item.moveUp();
-                break;
+            }
         }
 
         item.update();
@@ -338,7 +348,7 @@ function updateZombies() {
 }
 
 function createUnicorn() {
-    unicorn = new component(50, 50, types.UNICORN, 10, 10)
+    unicorn = new component(50, 50, types.UNICORN, 310, 220)
 }
 
 function updateUnicorn() {
@@ -347,20 +357,44 @@ function updateUnicorn() {
 
 function moveLeftClicked() {
     unicorn.moveLeft()
+
+    moveCounter += 1;
+    if (moveCounter % numOfMovesUntilNewZombie == 0) {
+        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
+    }
+
     updateBoard()
 }
 
 function moveUpClicked() {
     unicorn.moveUp()
+
+    moveCounter += 1;
+    if (moveCounter % numOfMovesUntilNewZombie == 0) {
+        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
+    }
+
     updateBoard()
 }
 
 function moveRightClicked() {
     unicorn.moveRight()
+
+    moveCounter += 1;
+    if (moveCounter % numOfMovesUntilNewZombie == 0) {
+        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
+    }
+
     updateBoard()
 }
 
 function moveDownClicked() {
     unicorn.moveDown()
+
+    moveCounter += 1;
+    if (moveCounter % numOfMovesUntilNewZombie == 0) {
+        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
+    }
+
     updateBoard()
 }
