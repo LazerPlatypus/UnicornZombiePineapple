@@ -287,10 +287,6 @@ function drawObstacles(){
         comp.update();
     }
 
-
-    var z1 = new component(50,50,types.ZOMBIE, 70, 70);
-    zombies = [z1];
-    z1.update();
 }
 
 function createZombies() {
@@ -298,5 +294,7 @@ function createZombies() {
 }
 
 function updateZombies() {
-    zombies.forEach(function (item) { item.update() });
+    zombies.forEach(function (item) { item.moveRight(); item.update() });
 }
+
+setInterval(updateBoard,1000);
