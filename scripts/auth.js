@@ -6,7 +6,7 @@ exports.requireLogin = (req, res, callback) => {
             title: 'Error',
             message: 'You must be logged in to view this page.'
         };
-        res.redirect("/", model);
+        res.redirect("/");
         return;
     }
 }
@@ -19,7 +19,7 @@ exports.requireAdmin = (req, res, callback) => {
             title: 'Error',
             message: 'You must do not have the previleges to view this page.'
         };
-        res.redirect("/", model);
+        res.redirect("/");
         return;
     }
 }

@@ -31,6 +31,7 @@ router.route("/login").post(
     function (req, res) {
 
         mongo_controller.loginUser(req.body.username, req.body.password, (user, err) => {
+            // console.log(`Err: ${err} User: ${user}`);
             if (err) {
                 var model = {
                     title: 'Login Page',
@@ -42,7 +43,7 @@ router.route("/login").post(
 
             if (user) {
                 req.session.user = user;
-                res.redirect("/games")
+                res.redirect("/gameScreen")
             }
         });
     }
@@ -69,10 +70,10 @@ router.route("/gameScreen").get(
 router.route("/userInfo").get(
 
     function(req, res){
-        //auth.requireLogin(req, res, () => {
-            res.render('userInfo');
+        auth.requireLogin(req, res, () => {
+            res.render('userInfo', {user: req.session.user});
+        });
 
-        //});
     }
 )
 
@@ -94,6 +95,7 @@ router.route("/register").get(
 router.route("/register").post(
     function(req,res){ 
         mongo_controller.createUser(req.body.username, req.body.password, (user, err) => {
+            // console.log(`Err: ${err} User: ${user}`);
             if (err) {
                 var model = {
                     title: 'Register Page',
@@ -102,13 +104,17 @@ router.route("/register").post(
                 res.render('userRegister', model);
                 return;
             }
+            console.log(user);
             if (user) {
+                console.log("there is a user");
                 req.session.user = user;
-                res.redirect("/games");
+                console.log(req.session);
+                res.redirect("/gameScreen");
+            } else {
+                res.redirect("/");
             }
         })
 
-        res.redirect("/");
     }
 )
 
