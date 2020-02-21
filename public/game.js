@@ -318,6 +318,7 @@ function updateZombies() {
 }
 
 function createUnicorn() {
+    unicorn = new component(50, 50, types.UNICORN, 10, 10)
 }
 
 function updateUnicorn() {
