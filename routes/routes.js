@@ -67,7 +67,7 @@ router.route("/gameover").post(
             })
         }
 
-        res.render("gameOver", {Score: req.body.score});
+        res.render("gameOver", {Score: req.body.score, loggedIn: isLoggedIn});
     }
 )
 
@@ -148,7 +148,8 @@ router.route("/leaderboard").get(
             console.log(topTenUsers)
 
             model = {
-                users : topTenUsers
+                users : topTenUsers,
+                loggedIn: isLoggedIn
             }
             res.render("leaderboard", model);
         }) 
