@@ -230,19 +230,28 @@ function component(width, height, type, x, y){
     }
 
     this.moveRight = function() {
-        this.x += this.speedX;
+        if (this.x < 600) {
+            this.x += this.speedX;
+        }
     }
 
     this.moveLeft = function() {
-        this.x -= this.speedX;
+        if (this.x > 20) {
+            this.x -= this.speedX;
+        }
     }
 
     this.moveUp = function() {
-        this.y -= this.speedY;
+        if (this.y > 20) {
+            this.y -= this.speedY;
+
+        }
     }
 
     this.moveDown = function() {
-        this.y += this.speedY;
+        if (this.y < 420) {
+            this.y += this.speedY;
+        }
     }
 
     //this will let us know if it crashed with something else
