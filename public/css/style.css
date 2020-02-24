@@ -8,6 +8,9 @@
     display: inline-block;
 }
 
+.hidden{
+    display:none;
+}
 
 h1{
     border-radius:5px;

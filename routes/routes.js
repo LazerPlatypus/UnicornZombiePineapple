@@ -48,6 +48,25 @@ router.route("/login").post(
     }
 );
 
+router.route("/gameover").post(
+    function(req, res) {
+        if (req.session.user) {
+            req.session.user.score += parseInt(req.body.score);
+            mongo_controller.edit_user(req.session.user, (err, user) => {
+                if (err) {
+                    console.log(err);
+                }
+    
+                if (user) {
+                    req.session.user = user;
+                }
+            })
+        }
+
+        res.render("gameOver", {Score: req.body.score});
+    }
+)
+
 router.route("/logout").get(
     function (req, res) {
         // Need to clear our session logout

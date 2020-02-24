@@ -13,4 +13,9 @@ append body
     button(onclick="moveRightClicked()") Move Right
     button(onclick="moveDownClicked()") Move Down
 
+    form(id="scoreform", action="/gameover", method="post", class="hidden")
+        input(type="text", name="score", id="textboxscore")
+
     script(src="game.js")
+
+

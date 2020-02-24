@@ -306,11 +306,8 @@ function updateZombies() {
         var randNum = Math.floor(Math.random() * 10);
         
         if (item.crashWith(unicorn)) {
-            // The game should end here but I can't figure out a way to end it
-            // clearCanvas();
-            // menu();
-
-            // return;
+            document.getElementById("textboxscore").value = score;
+            document.getElementById("scoreform").submit();
         }
 
         if(randNum < 1){
