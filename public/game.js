@@ -303,8 +303,7 @@ function createZombies() {
 
 function updateZombies() {
     zombies.forEach(function (item) { 
-        var randNum = Math.floor(Math.random() * 3);
-
+        var randNum = Math.floor(Math.random() * 10);
         
         if (item.crashWith(unicorn)) {
             // The game should end here but I can't figure out a way to end it
@@ -313,7 +312,13 @@ function updateZombies() {
 
             // return;
         }
+
+        if(randNum < 1){
+            pineapples.push(new component(40, 40, types.PINEAPPLE, item.x, item.y));
+        }
         
+        randNum = Math.floor(Math.random() * 3);
+
         if (randNum == 0) {
             randNum = Math.floor(Math.random() * 4);
 
@@ -373,25 +378,25 @@ function updatePinapples(){
             pineapples[i].update();
         }
     }
-    spawnPineapples();
+    // spawnPineapples();
 }
 
-function spawnPineapples(){
-    //each zombie has a chance to drop a pinapple
-    for(var i = 0 ; i < zombies.length; i ++){
-        var chance = Math.floor(Math.random() * 10);
-        if(chance < 1){
-            pineapples.push(new component(40, 40, types.PINEAPPLE, zombies[i].x, zombies[i].y));
+// function spawnPineapples(){
+//     //each zombie has a chance to drop a pinapple
+//     for(var i = 0 ; i < zombies.length; i ++){
+//         var chance = Math.floor(Math.random() * 10);
+//         if(chance < 1){
+//             pineapples.push(new component(40, 40, types.PINEAPPLE, zombies[i].x, zombies[i].y));
 
-            for(var j = 0; j < pineapples.length; j++){
-                if(pineapples[j].crashWith(pineapples[pineapples.length])){
-                    pineapples.splice(i, 1);
-                }
-            }
+//             for(var j = 0; j < pineapples.length; j++){
+//                 if(pineapples[j].crashWith(pineapples[pineapples.length])){
+//                     pineapples.splice(i, 1);
+//                 }
+//             }
 
-        }
-    }
-}
+//         }
+//     }
+// }
 
 
 
