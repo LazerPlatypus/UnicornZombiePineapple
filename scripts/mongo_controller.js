@@ -124,7 +124,7 @@ const createBlankUser = (username, hash) => {
         username: username,
         password: hash,
         score: 0,
-        gamesPlayed: 0,
+        games_played: 0,
         losses: 0,
         wins: 0,
         isAdmin: false
@@ -137,7 +137,7 @@ const createSafeUser = (user) => {
         id: user.id,
         username: user.username,
         score: user.score,
-        gamesPlayed: user.gamesPlayed,
+        games_played: user.games_played,
         losses: user.losses,
         wins: user.wins,
         isAdmin: user.isAdmin
