@@ -49,18 +49,18 @@ function menu() {
         width: 390,
         height: 70
     };
-    var option2 = {
-        x: 150,
-        y: 210,
-        width: 390,
-        height: 70
-    };
-    var option3 = {
-        x: 150,
-        y: 300,
-        width: 390,
-        height: 70
-    };
+    // var option2 = {
+    //     x: 150,
+    //     y: 210,
+    //     width: 390,
+    //     height: 70
+    // };
+    // var option3 = {
+    //     x: 150,
+    //     y: 300,
+    //     width: 390,
+    //     height: 70
+    // };
 
     var BOARD_CANVAS_CONTEXT = null;
     var canvas = document.getElementById('gameCanvas');
@@ -137,16 +137,12 @@ function menu() {
             // debugger;
             if (isInside(mousePos, option1)) {
                 clearCanvas();
-                // score = 0;
-                // zombies = [];
-                // walls = [];
-                // pineapples = [];
                 drawGameBoard();
-            } else if (isInside(mousePos, option2)) {
+            // } else if (isInside(mousePos, option2)) {
                 //start multiplayer
                 //clearCanvas();
                 //drawGameBoard();
-            } else if (isInside(mousePos, option3)) {
+            // } else if (isInside(mousePos, option3)) {
                 //join multiplayer
                 //muliplayer
             } else {
