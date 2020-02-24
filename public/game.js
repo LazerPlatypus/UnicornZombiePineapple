@@ -166,7 +166,6 @@ function clearCanvas() {
 function drawGameBoard() {
 
     document.addEventListener('keypress', function(event) {
-        console.log(event.keyCode)
         if(event.keyCode == 97) {
             moveLeftClicked()
         } else if(event.keyCode == 119) {
