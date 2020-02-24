@@ -85,9 +85,9 @@ router.route("/logout").get(
 router.route("/gameScreen").get(
     
     function(req, res){
-        auth.requireLogin(req, res, () => {
+        //auth.requireLogin(req, res, () => {
             res.render('game', {loggedIn: isLoggedIn});
-        });
+        //});
     }
 )
 
