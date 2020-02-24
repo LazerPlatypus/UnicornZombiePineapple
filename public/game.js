@@ -164,6 +164,20 @@ function clearCanvas() {
 }
 
 function drawGameBoard() {
+
+    document.addEventListener('keypress', function(event) {
+        console.log(event.keyCode)
+        if(event.keyCode == 97) {
+            moveLeftClicked()
+        } else if(event.keyCode == 119) {
+            moveUpClicked()
+        } else if(event.keyCode == 100) {
+            moveRightClicked()
+        }  else if(event.keyCode == 115) {
+            moveDownClicked()
+        }
+    });
+
     createWalls();
     drawWalls();
     createUnicorn();
