@@ -141,10 +141,11 @@ router.route("/leaderboard").get(
         await mongo_controller.getHighScores(function (callback, err){            
             var topTenUsers = []
             for(i = 0; i < 10; i++){
-                topTenUsers.push(callback[i])
+                if(callback[i]){
+                    topTenUsers.push(callback[i])
+                }
             }
-            console.log(topTenUsers)
-
+            
             model = {
                 users : topTenUsers
             }
