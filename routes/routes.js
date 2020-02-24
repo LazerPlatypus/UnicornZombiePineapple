@@ -52,6 +52,7 @@ router.route("/gameover").post(
     function(req, res) {
         if (req.session.user) {
             req.session.user.score += parseInt(req.body.score);
+            req.session.user.games_played += 1;
             mongo_controller.edit_user(req.session.user, (err, user) => {
                 if (err) {
                     console.log(err);
