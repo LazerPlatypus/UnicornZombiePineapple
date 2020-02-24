@@ -12,7 +12,6 @@ router.route("/").get(
             isAdmin: req.session.isAdmin,
             loggedIn: isLoggedIn
         }
-
         res.render('index', model)
     }
 )
@@ -52,6 +51,25 @@ router.route("/login").post(
         });
     }
 );
+
+router.route("/gameover").post(
+    function(req, res) {
+        if (req.session.user) {
+            req.session.user.score += parseInt(req.body.score);
+            mongo_controller.edit_user(req.session.user, (err, user) => {
+                if (err) {
+                    console.log(err);
+                }
+    
+                if (user) {
+                    req.session.user = user;
+                }
+            })
+        }
+
+        res.render("gameOver", {Score: req.body.score});
+    }
+)
 
 router.route("/logout").get(
     
@@ -117,6 +135,23 @@ router.route("/register").post(
             }
         })
 
+    }
+)
+
+router.route("/leaderboard").get(
+    async function(req, res){
+        await mongo_controller.getHighScores(function (callback, err){            
+            var topTenUsers = []
+            for(i = 0; i < 10; i++){
+                topTenUsers.push(callback[i])
+            }
+            console.log(topTenUsers)
+
+            model = {
+                users : topTenUsers
+            }
+            res.render("leaderboard", model);
+        }) 
     }
 )
 

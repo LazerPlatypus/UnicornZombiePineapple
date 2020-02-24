@@ -105,7 +105,7 @@ exports.edit_user = (user, callback) => {
 }
 
 exports.getHighScores = (callback) => {
-    this.user.find({}, `username score`, {sort: {score: descending}}, (err, leaderboard) => {
+    this.user.find({}, `username score`, {sort: {score: -1}}, (err, leaderboard) => {
         if (err) {
             return callback(undefined);
         }

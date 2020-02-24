@@ -49,18 +49,18 @@ function menu() {
         width: 390,
         height: 70
     };
-    var option2 = {
-        x: 150,
-        y: 210,
-        width: 390,
-        height: 70
-    };
-    var option3 = {
-        x: 150,
-        y: 300,
-        width: 390,
-        height: 70
-    };
+    // var option2 = {
+    //     x: 150,
+    //     y: 210,
+    //     width: 390,
+    //     height: 70
+    // };
+    // var option3 = {
+    //     x: 150,
+    //     y: 300,
+    //     width: 390,
+    //     height: 70
+    // };
 
     var BOARD_CANVAS_CONTEXT = null;
     var canvas = document.getElementById('gameCanvas');
@@ -137,16 +137,12 @@ function menu() {
             // debugger;
             if (isInside(mousePos, option1)) {
                 clearCanvas();
-                // score = 0;
-                // zombies = [];
-                // walls = [];
-                // pineapples = [];
                 drawGameBoard();
-            } else if (isInside(mousePos, option2)) {
+            // } else if (isInside(mousePos, option2)) {
                 //start multiplayer
                 //clearCanvas();
                 //drawGameBoard();
-            } else if (isInside(mousePos, option3)) {
+            // } else if (isInside(mousePos, option3)) {
                 //join multiplayer
                 //muliplayer
             } else {
@@ -303,17 +299,19 @@ function createZombies() {
 
 function updateZombies() {
     zombies.forEach(function (item) { 
-        var randNum = Math.floor(Math.random() * 3);
-
+        var randNum = Math.floor(Math.random() * 10);
         
         if (item.crashWith(unicorn)) {
-            // The game should end here but I can't figure out a way to end it
-            // clearCanvas();
-            // menu();
+            document.getElementById("textboxscore").value = score;
+            document.getElementById("scoreform").submit();
+        }
 
-            // return;
+        if(randNum < 1){
+            pineapples.push(new component(40, 40, types.PINEAPPLE, item.x, item.y));
         }
         
+        randNum = Math.floor(Math.random() * 3);
+
         if (randNum == 0) {
             randNum = Math.floor(Math.random() * 4);
 
@@ -373,25 +371,25 @@ function updatePinapples(){
             pineapples[i].update();
         }
     }
-    spawnPineapples();
+    // spawnPineapples();
 }
 
-function spawnPineapples(){
-    //each zombie has a chance to drop a pinapple
-    for(var i = 0 ; i < zombies.length; i ++){
-        var chance = Math.floor(Math.random() * 10);
-        if(chance < 1){
-            pineapples.push(new component(40, 40, types.PINEAPPLE, zombies[i].x, zombies[i].y));
+// function spawnPineapples(){
+//     //each zombie has a chance to drop a pinapple
+//     for(var i = 0 ; i < zombies.length; i ++){
+//         var chance = Math.floor(Math.random() * 10);
+//         if(chance < 1){
+//             pineapples.push(new component(40, 40, types.PINEAPPLE, zombies[i].x, zombies[i].y));
 
-            for(var j = 0; j < pineapples.length; j++){
-                if(pineapples[j].crashWith(pineapples[pineapples.length])){
-                    pineapples.splice(i, 1);
-                }
-            }
+//             for(var j = 0; j < pineapples.length; j++){
+//                 if(pineapples[j].crashWith(pineapples[pineapples.length])){
+//                     pineapples.splice(i, 1);
+//                 }
+//             }
 
-        }
-    }
-}
+//         }
+//     }
+// }
 
 
 

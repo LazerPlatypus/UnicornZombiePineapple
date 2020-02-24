@@ -1,0 +1,14 @@
+extends header
+append body
+    h1="Leaderboards!"
+    table(align='center')
+        caption="Top scores!"
+        tr
+            th='Name'
+            th='Score'
+        for user in users
+            tr
+                td=user.username
+                td=user.score
+
+//- Should gets top 10 scores and render it in this page
