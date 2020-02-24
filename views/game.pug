@@ -1,22 +1,23 @@
 extends header.pug
 append body
-    canvas(
-        width=700
-        height=500
-        border=black
-        id="gameCanvas"
-    )
+    div(id="center_everything")
+        canvas(
+            width=700
+            height=500
+            border=black
+            id="gameCanvas"
+        )
 
-    p(id="score") Score: 0
+        p(id="score") Score: 0
 
-    div(id="button_container")
-        div(id="top_button_container")
-            button(onclick="moveUpClicked()") ^
-        div(id="middle_button_containers")
-            button(onclick="moveLeftClicked()") &lt;
-            button(onclick="moveRightClicked()") &gt;
-        div(id="bottom_button_container")
-            button(onclick="moveDownClicked()") v
+        div(id="button_container")
+            div(id="top_button_container")
+                button(onclick="moveUpClicked()") ^
+            div(id="middle_button_containers")
+                button(onclick="moveLeftClicked()") &lt;
+                button(onclick="moveRightClicked()") &gt;
+            div(id="bottom_button_container")
+                button(onclick="moveDownClicked()") v
 
     form(id="scoreform", action="/gameover", method="post", class="hidden")
         input(type="text", name="score", id="textboxscore")

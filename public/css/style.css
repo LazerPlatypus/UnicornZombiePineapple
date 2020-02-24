@@ -13,6 +13,7 @@
 }
 
 #button_container{
+    margin: 0 auto;
     width: 700px;
     display: flex;
     flex-direction: column;
@@ -36,6 +37,12 @@
 #bottom_button_container{
     display: block;
     flex-direction: row;
+}
+
+#center_everything{
+    display: block;
+    text-align: center;
+    margin: 0 auto;
 }
 
 h1{
