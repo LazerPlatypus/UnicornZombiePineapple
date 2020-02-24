@@ -119,10 +119,15 @@ router.route("/register").post(
 
 router.route("/leaderboard").get(
     async function(req, res){
-        await mongo_controller.getHighScores(function (callback, err){
-            
+        await mongo_controller.getHighScores(function (callback, err){            
+            var topTenUsers = []
+            for(i = 0; i < 10; i++){
+                topTenUsers.push(callback[i])
+            }
+            console.log(topTenUsers)
+
             model = {
-                users : callback
+                users : topTenUsers
             }
             res.render("leaderboard", model);
         }) 
