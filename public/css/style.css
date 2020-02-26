@@ -8,6 +8,42 @@
     display: inline-block;
 }
 
+.hidden{
+    display:none;
+}
+
+#button_container{
+    margin: 0 auto;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.center {
+    display: inline-block;
+}
+
+#top_button_container{
+    display: block;
+    flex-direction: row;
+}
+
+#middle_button_container{
+    display: flex;
+    flex-direction: row;
+}
+
+#bottom_button_container{
+    display: block;
+    flex-direction: row;
+}
+
+#center_everything{
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
 
 h1{
     border-radius:5px;
@@ -61,4 +97,19 @@ li a:hover {
 
 body{
     background-color: darkgray;
+}
+
+button {
+    height: 40px;
+    width: 80px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
 }
