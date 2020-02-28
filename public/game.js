@@ -1,46 +1,10 @@
 var zombies = [];
-var walls = [];
-var pineapples = [];
-var unicorn;
 var canvas;
 var ctx;
-var moveCounter = 0;
-var numOfMovesUntilNewZombie = 10;
-const types = {
-    WALL : 1,
-    PINEAPPLE : 2,
-    UNICORN: 3,
-    ZOMBIE: 4
-}
-var components = [];
-var score = 0;
+var pineapples;
+
 menu();
 
-class Button{
-    constructor(func, x, y, w, h, text){
-        var obj = this;
-        this.eventListener = canvas.addEventListener("click", function (e) {            // Handle Click on Canvas
-            obj.clickEvent(e);
-        });
-        var fillStyleBtn = 'rgba(255,255,255,255)';
-        ctx.beginPath();
-        ctx.rect(x, y, w, h);
-        ctx.fillStyle = fillStyleBtn;
-        ctx.fill();
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = '#000000';
-        ctx.stroke();
-        ctx.closePath();
-
-        ctx.font = "48px serif";
-        ctx.textAlign = "center";
-        ctx.fillStyle = '#000000';
-        ctx.fillText(Text, canvas.width / 2, y+45);
-        ctx.font = "38px serif";
-    
-        ctx.fillText(text, canvas.width / 2, 165);
-    }
-}
 
 function menu() {
     var option1 = {
@@ -49,18 +13,18 @@ function menu() {
         width: 390,
         height: 70
     };
-    // var option2 = {
-    //     x: 150,
-    //     y: 210,
-    //     width: 390,
-    //     height: 70
-    // };
-    // var option3 = {
-    //     x: 150,
-    //     y: 300,
-    //     width: 390,
-    //     height: 70
-    // };
+    var option2 = {
+        x: 150,
+        y: 210,
+        width: 390,
+        height: 70
+    };
+    var option3 = {
+        x: 150,
+        y: 300,
+        width: 390,
+        height: 70
+    };
 
     var BOARD_CANVAS_CONTEXT = null;
     var canvas = document.getElementById('gameCanvas');
@@ -87,27 +51,27 @@ function menu() {
     ctx.stroke();
     ctx.closePath();
 
-    // //second option
-    // var fillStyleBtn = 'rgba(255,255,255,255)';
-    // ctx.beginPath();
-    // ctx.rect(150, 210, 390, 70);
-    // ctx.fillStyle = fillStyleBtn;
-    // ctx.fill();
-    // ctx.lineWidth = 2;
-    // ctx.strokeStyle = '#000000';
-    // ctx.stroke();
-    // ctx.closePath();
+    //second option
+    var fillStyleBtn = 'rgba(255,255,255,255)';
+    ctx.beginPath();
+    ctx.rect(150, 210, 390, 70);
+    ctx.fillStyle = fillStyleBtn;
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#000000';
+    ctx.stroke();
+    ctx.closePath();
 
-    // //third option
-    // var fillStyleBtn = 'rgba(255,255,255,255)';
-    // ctx.beginPath();
-    // ctx.rect(150, 300, 390, 70);
-    // ctx.fillStyle = fillStyleBtn;
-    // ctx.fill();
-    // ctx.lineWidth = 2;
-    // ctx.strokeStyle = '#000000';
-    // ctx.stroke();
-    // ctx.closePath();
+    //third option
+    var fillStyleBtn = 'rgba(255,255,255,255)';
+    ctx.beginPath();
+    ctx.rect(150, 300, 390, 70);
+    ctx.fillStyle = fillStyleBtn;
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#000000';
+    ctx.stroke();
+    ctx.closePath();
 
     //this is for the text
     ctx.font = "48px serif";
@@ -115,10 +79,9 @@ function menu() {
     ctx.fillStyle = '#000000';
     ctx.fillText("Menu", canvas.width / 2, 70);
     ctx.font = "38px serif";
-
     ctx.fillText("Play Solo Game", canvas.width / 2, 165);
-    //ctx.fillText("Start Multiplayer Game", canvas.width / 2, 255);
-    //ctx.fillText("Join Multiplayer Game", canvas.width / 2, 345);
+    ctx.fillText("Start Multiplayer Game", canvas.width / 2, 255);
+    ctx.fillText("Join Multiplayer Game", canvas.width / 2, 345);
 
 
     function getMousePos(canvas, event) {
@@ -129,26 +92,23 @@ function menu() {
         };
     }
 
+    
 
-
-    canvas.addEventListener('click', 
-    function (evt){
-            var mousePos = getMousePos(canvas, evt);
-            // debugger;
-            if (isInside(mousePos, option1)) {
-                clearCanvas();
-                drawGameBoard();
-            // } else if (isInside(mousePos, option2)) {
-                //start multiplayer
-                //clearCanvas();
-                //drawGameBoard();
-            // } else if (isInside(mousePos, option3)) {
-                //join multiplayer
-                //muliplayer
-            } else {
-            }
+    canvas.addEventListener('click', function (evt) {
+        var mousePos = getMousePos(canvas, evt);
+        // debugger;
+        if (isInside(mousePos, option1)) {
+            clearCanvas();
+            drawGameBoard();
+        } else if (isInside(mousePos, option2)) {
+            clearCanvas();
+            drawGameBoard();
+        } else if (isInside(mousePos, option3)) {
+            alert('do something here to type in the code');
+        } else {
+            alert('clicked outside rect');
         }
-    , false);
+    }, false);
 
     function isInside(pos, rect) {
         return pos.x > rect.x && pos.x < rect.x + rect.width && pos.y < rect.y + rect.height && pos.y > rect.y
@@ -161,108 +121,97 @@ function clearCanvas() {
         var ctx = BOARD_CANVAS_CONTEXT;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
+    canvas.removeEventListener
 }
 
 function drawGameBoard() {
-
-    document.addEventListener('keypress', function(event) {
-        if(event.keyCode == 97) {
-            moveLeftClicked()
-        } else if(event.keyCode == 119) {
-            moveUpClicked()
-        } else if(event.keyCode == 100) {
-            moveRightClicked()
-        }  else if(event.keyCode == 115) {
-            moveDownClicked()
-        }
-    });
-
-    createWalls();
-    drawWalls();
-    createUnicorn();
-    updateUnicorn();
-    createPineapples();
-    updatePinapples();
-    createZombies();
-    updateZombies();
+    var img = new Image;
+    img.src = "/boardBackground.png";
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    }
+    
+    drawObstacles();
 }
 
 function updateBoard() {
     clearCanvas();
-    drawWalls();
-    updateZombies();
-    updateUnicorn();
-    updatePinapples();
+    drawGameBoard();
+    zombies.forEach(function (item) { item.draw() });
 }
 
+class Zombie {
+
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.zombieHeight = 40;
+        this.zombieWidth = 40;
+    }
+
+    draw() {
+        var ctx = document.getElementById('gameCanvas').getContext('2d')
+        var img = new Image;
+        var xPos = this.x;
+        var yPos = this.y;
+        var zombieH = this.zombieHeight;
+        var zombieW = this.zombieWidth;
+
+        img.src = "/tempZombie.jpg";
+        img.onload = function () {
+            ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
+        }
+    }
+}
+
+const types = {
+    WALL,
+    PINEAPPLE,
+    UNICORN,
+    ZOMBIE
+}
 //this is for the walls and pineapples
 function component(width, height, type, x, y){
     this.width = width;
     this.height = height;
-    this.speedX = 50;
-    this.speedY = 50;
+    this.speedX = 0;
+    this.speedY = 0;
     this.type = type;
     this.x = x;
     this.y = y;
-
     //update the component(do this every frame?)
     this.update = function() {
-        var xPos = this.x;
-        var yPos = this.y;
-        var heightVal = this.height;
-        var widthVal = this.width;
 
         if(this.type == types.WALL){
-            ctx.fillStyle = 'blue';
+            ctx.fillStyle = '#696969';
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }else if(this.type == types.ZOMBIE){
             var img = new Image;
-            img.src = "/resources/Zombies/zombie-head.png";
+            img.src = "/tempZombie.jpg";
             img.onload = function () {
-                ctx.drawImage(img, xPos, yPos, widthVal, heightVal);
+                ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
             }
         }else if(this.type == types.UNICORN){
             var img = new Image;
-            img.src = "/resources/Unicorns/cute-unicorn-cropped.png";
+            img.src = "/tempZombie.jpg";
             img.onload = function () {
-                ctx.drawImage(img, xPos, yPos, widthVal, heightVal);
+                ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
             }
         }else if(this.type == types.PINEAPPLE){
             var img = new Image;
-            img.src = "/resources/pineapple.png";
+            img.src = "/tempZombie.jpg";
             img.onload = function () {
-                ctx.drawImage(img, xPos, yPos, widthVal, heightVal);
+                ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
             }
         }else{
             throw err;
         }
     }
-
-    this.moveRight = function() {
-        if (this.x < 600) {
-            this.x += this.speedX;
-        }
+    //set position
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;
     }
-
-    this.moveLeft = function() {
-        if (this.x > 20) {
-            this.x -= this.speedX;
-        }
-    }
-
-    this.moveUp = function() {
-        if (this.y > 20) {
-            this.y -= this.speedY;
-
-        }
-    }
-
-    this.moveDown = function() {
-        if (this.y < 420) {
-            this.y += this.speedY;
-        }
-    }
-
     //this will let us know if it crashed with something else
     this.crashWith = function(otherobj) {
         var myleft = this.x;
@@ -270,9 +219,9 @@ function component(width, height, type, x, y){
         var mytop = this.y;
         var mybottom = this.y + (this.height);
         var otherleft = otherobj.x;
-        var otherright = otherobj.x + (otherobj.width-10);
+        var otherright = otherobj.x + (otherobj.width);
         var othertop = otherobj.y;
-        var otherbottom = otherobj.y + (otherobj.height-10);
+        var otherbottom = otherobj.y + (otherobj.height);
         var crash = true;
         if ((mybottom < othertop) ||
         (mytop > otherbottom) ||
@@ -281,171 +230,10 @@ function component(width, height, type, x, y){
             crash = false;
         }
         return crash;
-   }
+  }
 }
 
-function createWalls(){
-
-    //outer walls
-    var c1 = new component(700,10,types.WALL,0,0);
-    var c2 = new component(10,500,types.WALL,0,0);
-    var c3 = new component(700,10,types.WALL,0,490);
-    var c4 = new component(10,500,types.WALL,690,0);
-
-    components = [c1, c2, c3, c4];
-}
-
-function drawWalls() {
-    for(const comp of components){
-        comp.update();
-    }
-}
-
-function createZombies() {
-    this.zombieHeight = 50;
-    this.zombieWidth = 50;
-
-    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 610, 220));
-    zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
-
-}
-
-function updateZombies() {
-    zombies.forEach(function (item) { 
-        var randNum = Math.floor(Math.random() * 10);
-        
-        if (item.crashWith(unicorn)) {
-            document.getElementById("textboxscore").value = score;
-            document.getElementById("scoreform").submit();
-        }
-
-        if(randNum < 1){
-            pineapples.push(new component(40, 40, types.PINEAPPLE, item.x, item.y));
-        }
-        
-        randNum = Math.floor(Math.random() * 3);
-
-        if (randNum == 0) {
-            randNum = Math.floor(Math.random() * 4);
-
-            switch (randNum) {
-                default:
-                case 0:
-                    item.moveDown();
-                    break;
-                case 1:
-                    item.moveLeft();
-                    break;
-                case 2:
-                    item.moveRight();
-                    break;
-                case 3:
-                    item.moveUp();
-                    break;
-            }
-        } else {
-            if (unicorn.x > item.x) {
-                item.moveRight()
-            } else if (item.x > unicorn.x) {
-                item.moveLeft()
-            } else if (unicorn.y > item.y) {
-                item.moveDown()
-            } else if (item.y > unicorn.y) {
-                item.moveUp();
-            }
-        }
-
-        item.update();
-    });
-}
-
-function createUnicorn() {
-    unicorn = new component(50, 50, types.UNICORN, 310, 220)
-}
-
-function updateUnicorn() {
-    unicorn.update()
-}
-
-function createPineapples(){
-    pineapples.push(new component(40, 40, types.PINEAPPLE, 10, 10));
-    pineapples.push(new component(40, 40, types.PINEAPPLE, 10, 60));
-}
-
-function updatePinapples(){
-    for(var i = 0 ; i < pineapples.length; i ++){
-        if(pineapples[i].crashWith(unicorn)){
-            score ++;
-            var scoreLabel = document.getElementById('score');
-            scoreLabel.innerHTML= "Score: " + score;
-            pineapples.splice(i, 1);
-        }
-        else{
-            pineapples[i].update();
-        }
-    }
-    // spawnPineapples();
-}
-
-// function spawnPineapples(){
-//     //each zombie has a chance to drop a pinapple
-//     for(var i = 0 ; i < zombies.length; i ++){
-//         var chance = Math.floor(Math.random() * 10);
-//         if(chance < 1){
-//             pineapples.push(new component(40, 40, types.PINEAPPLE, zombies[i].x, zombies[i].y));
-
-//             for(var j = 0; j < pineapples.length; j++){
-//                 if(pineapples[j].crashWith(pineapples[pineapples.length])){
-//                     pineapples.splice(i, 1);
-//                 }
-//             }
-
-//         }
-//     }
-// }
-
-
-
-function moveLeftClicked() {
-    unicorn.moveLeft()
-
-    moveCounter += 1;
-    if (moveCounter % numOfMovesUntilNewZombie == 0) {
-        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
-    }
-
-    updateBoard()
-}
-
-function moveUpClicked() {
-    unicorn.moveUp()
-
-    moveCounter += 1;
-    if (moveCounter % numOfMovesUntilNewZombie == 0) {
-        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
-    }
-
-    updateBoard()
-}
-
-function moveRightClicked() {
-    unicorn.moveRight()
-
-    moveCounter += 1;
-    if (moveCounter % numOfMovesUntilNewZombie == 0) {
-        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
-    }
-
-    updateBoard()
-}
-
-function moveDownClicked() {
-    unicorn.moveDown()
-
-    moveCounter += 1;
-    if (moveCounter % numOfMovesUntilNewZombie == 0) {
-        zombies.push(new component(this.zombieWidth, this.zombieHeight, types.ZOMBIE, 10, 220));
-    }
-
-    updateBoard()
+function drawObstacles(){
+    var c1 = new component(100,100,types.WALL,100,100);
+    c1.update();
 }
