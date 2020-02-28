@@ -87,6 +87,25 @@ router.route("deleteProfile").get(
             var thisUser = user.get(user._id);
             user.deleteOne(thisUser);
         }
+    function (req, res) {
+
+        mongo_controller.loginUser(req.body.username, req.body.password, (user, err) => {
+            if (err) {
+                var model = {
+                    title: 'Login Page',
+                    message: err,
+                    loggedIn: isLoggedIn
+                };
+                res.render("userLogin", model);
+                return;
+            }
+
+            if (user) {
+                req.session.user = user;
+                isLoggedIn = true;
+                res.redirect("/gameScreen")
+            }
+        });
     }
 );
 
