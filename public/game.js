@@ -1,10 +1,8 @@
 var zombies = [];
 var canvas;
 var ctx;
-var pineapples;
 
 menu();
-
 
 function menu() {
     var option1 = {
@@ -92,8 +90,6 @@ function menu() {
         };
     }
 
-    
-
     canvas.addEventListener('click', function (evt) {
         var mousePos = getMousePos(canvas, evt);
         // debugger;
@@ -130,13 +126,12 @@ function drawGameBoard() {
     img.onload = function () {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     }
-    
-    drawObstacles();
 }
 
 function updateBoard() {
     clearCanvas();
     drawGameBoard();
+
     zombies.forEach(function (item) { item.draw() });
 }
 
@@ -164,48 +159,34 @@ class Zombie {
     }
 }
 
-const types = {
-    WALL,
-    PINEAPPLE,
-    UNICORN,
-    ZOMBIE
-}
 //this is for the walls and pineapples
 function component(width, height, type, x, y){
     this.width = width;
     this.height = height;
     this.speedX = 0;
     this.speedY = 0;
-    this.type = type;
     this.x = x;
     this.y = y;
     //update the component(do this every frame?)
     this.update = function() {
-
-        if(this.type == types.WALL){
-            ctx.fillStyle = '#696969';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-        }else if(this.type == types.ZOMBIE){
+        ctx = myGameArea.context;
+        if(type = "wall"){
+            ctx.fillStyle = Blue;
+        }else if("zombie"){
             var img = new Image;
             img.src = "/tempZombie.jpg";
             img.onload = function () {
                 ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
             }
-        }else if(this.type == types.UNICORN){
+        }else if("unicorn"){
             var img = new Image;
             img.src = "/tempZombie.jpg";
             img.onload = function () {
                 ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
             }
-        }else if(this.type == types.PINEAPPLE){
-            var img = new Image;
-            img.src = "/tempZombie.jpg";
-            img.onload = function () {
-                ctx.drawImage(img, xPos, yPos, zombieW, zombieH);
-            }
-        }else{
-            throw err;
         }
+        
+        ctx.fillRect(this.x, this.y, this.width, this.height);
     }
     //set position
     this.newPos = function() {
@@ -231,9 +212,4 @@ function component(width, height, type, x, y){
         }
         return crash;
   }
-}
-
-function drawObstacles(){
-    var c1 = new component(100,100,types.WALL,100,100);
-    c1.update();
 }
