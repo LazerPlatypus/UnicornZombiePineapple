@@ -2,7 +2,6 @@ const express = require("express");
 const session = require("express-session");
 var routes = require("./routes/routes");
 const path = require('path')
-const bcrypt = require('bcrypt');
 const app = express();
 let port = 3000;
 
