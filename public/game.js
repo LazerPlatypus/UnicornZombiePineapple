@@ -368,6 +368,7 @@ function updateUnicorn() {
 }
 
 function createPineapples(){
+    pineapples.push(new component(40, 40, types.PINEAPPLE, 10, 10));
     pineapples.push(new component(40, 40, types.PINEAPPLE, 10, 60));
 }
 
